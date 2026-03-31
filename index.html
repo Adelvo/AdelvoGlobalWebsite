@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automatez AI</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Automatez AI home">
+        <span class="brand-mark">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <defs>
+              <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#c77dff"></stop>
+                <stop offset="100%" stop-color="#7b2ce2"></stop>
+              </linearGradient>
+            </defs>
+            <path d="M32 8c-3.5 0-6.3 2.8-6.3 6.3v1.6c-3.7.8-7 2.8-9.5 5.5l-1.4-1.4a4.5 4.5 0 0 0-6.4 0 4.5 4.5 0 0 0 0 6.4l1.5 1.5A24 24 0 0 0 8 36c0 3 2.4 5.4 5.4 5.4H15c.7 3.6 2.4 6.9 4.8 9.5L18 52.5a4.5 4.5 0 0 0 0 6.4 4.5 4.5 0 0 0 6.4 0l1.6-1.6a24.1 24.1 0 0 0 8 1.4c3 0 5.4-2.4 5.4-5.4v-1.8a24.1 24.1 0 0 0 8-3.6l1.4 1.4a4.5 4.5 0 0 0 6.4 0 4.5 4.5 0 0 0 0-6.4l-1.4-1.4a24.1 24.1 0 0 0 2.3-7.8H58c3 0 5.4-2.4 5.4-5.4S61 22.9 58 22.9h-1.8a24 24 0 0 0-3.4-7l1.5-1.5a4.5 4.5 0 0 0 0-6.4 4.5 4.5 0 0 0-6.4 0l-1.7 1.7A24 24 0 0 0 38.3 8h-1.8C36.5 10.2 34.5 12 32 12c6.6 0 12 5.4 12 12 0 3.2-1.3 6.2-3.5 8.5L32 41l-8.6-8.5A11.9 11.9 0 0 1 20 24c0-6.6 5.4-12 12-12Z" fill="url(#logoGradient)"></path>
+            <path d="M26 42h4v12h-4zM34 36h4v18h-4zM42 30h4v24h-4z" fill="url(#logoGradient)"></path>
+          </svg>
+        </span>
+        <span class="brand-text">
+          <strong>Automatez</strong>
+          <span>AI</span>
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a href="#top">Home</a>
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#about">About Us</a>
+      </nav>
+      <a class="button button-small" href="#contact">Let's Talk</a>
+    </header>
+
+    <main>
+      <section class="hero" id="top">
+        <div class="aurora-bg">
+          <div class="aurora blob1"></div>
+          <div class="aurora blob2"></div>
+          <div class="aurora blob3"></div>
+          <div class="aurora blob4"></div>
+        </div>
+        <div class="hero-noise" aria-hidden="true"></div>
+        <div class="hero-pill">Automatez AI</div>
+        <div class="hero-content">
+          <h1>
+            Accelerate Your Business
+            <span>with AI</span>
+            Automation
+          </h1>
+          <p>
+            Custom AI systems for businesses ready to cut costs,
+            streamline ops, and scale fast.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-ghost" href="#services">Explore Systems</a>
+            <a class="button" href="#contact">Book a Call</a>
+          </div>
+        </div>
+
+        <div class="hero-gear hero-gear-left" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <path d="M56.4 7.6 58 16a34.6 34.6 0 0 1 8.8 3.6l7.2-4.5 8.4 8.4-4.5 7.2A34.6 34.6 0 0 1 81.5 39l8.4 1.6v11.8L81.5 54a34.6 34.6 0 0 1-3.6 8.8l4.5 7.2-8.4 8.4-7.2-4.5a34.6 34.6 0 0 1-8.8 3.6l-1.6 8.4H44.6L43 77.5a34.6 34.6 0 0 1-8.8-3.6L27 78.4l-8.4-8.4 4.5-7.2A34.6 34.6 0 0 1 19.5 54L11 52.4V40.6l8.5-1.6a34.6 34.6 0 0 1 3.6-8.8l-4.5-7.2 8.4-8.4 7.2 4.5A34.6 34.6 0 0 1 43 16l1.6-8.4h11.8ZM50.5 31a15 15 0 1 0 0 30 15 15 0 0 0 0-30Z"></path>
+          </svg>
+        </div>
+        <div class="hero-gear hero-gear-top" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <path d="M56.4 7.6 58 16a34.6 34.6 0 0 1 8.8 3.6l7.2-4.5 8.4 8.4-4.5 7.2A34.6 34.6 0 0 1 81.5 39l8.4 1.6v11.8L81.5 54a34.6 34.6 0 0 1-3.6 8.8l4.5 7.2-8.4 8.4-7.2-4.5a34.6 34.6 0 0 1-8.8 3.6l-1.6 8.4H44.6L43 77.5a34.6 34.6 0 0 1-8.8-3.6L27 78.4l-8.4-8.4 4.5-7.2A34.6 34.6 0 0 1 19.5 54L11 52.4V40.6l8.5-1.6a34.6 34.6 0 0 1 3.6-8.8l-4.5-7.2 8.4-8.4 7.2 4.5A34.6 34.6 0 0 1 43 16l1.6-8.4h11.8ZM50.5 31a15 15 0 1 0 0 30 15 15 0 0 0 0-30Z"></path>
+          </svg>
+        </div>
+        <div class="hero-gear hero-gear-right" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <path d="M56.4 7.6 58 16a34.6 34.6 0 0 1 8.8 3.6l7.2-4.5 8.4 8.4-4.5 7.2A34.6 34.6 0 0 1 81.5 39l8.4 1.6v11.8L81.5 54a34.6 34.6 0 0 1-3.6 8.8l4.5 7.2-8.4 8.4-7.2-4.5a34.6 34.6 0 0 1-8.8 3.6l-1.6 8.4H44.6L43 77.5a34.6 34.6 0 0 1-8.8-3.6L27 78.4l-8.4-8.4 4.5-7.2A34.6 34.6 0 0 1 19.5 54L11 52.4V40.6l8.5-1.6a34.6 34.6 0 0 1 3.6-8.8l-4.5-7.2 8.4-8.4 7.2 4.5A34.6 34.6 0 0 1 43 16l1.6-8.4h11.8ZM50.5 31a15 15 0 1 0 0 30 15 15 0 0 0 0-30Z"></path>
+          </svg>
+        </div>
+        <div class="hero-gear hero-gear-bottom-left" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <path d="M56.4 7.6 58 16a34.6 34.6 0 0 1 8.8 3.6l7.2-4.5 8.4 8.4-4.5 7.2A34.6 34.6 0 0 1 81.5 39l8.4 1.6v11.8L81.5 54a34.6 34.6 0 0 1-3.6 8.8l4.5 7.2-8.4 8.4-7.2-4.5a34.6 34.6 0 0 1-8.8 3.6l-1.6 8.4H44.6L43 77.5a34.6 34.6 0 0 1-8.8-3.6L27 78.4l-8.4-8.4 4.5-7.2A34.6 34.6 0 0 1 19.5 54L11 52.4V40.6l8.5-1.6a34.6 34.6 0 0 1 3.6-8.8l-4.5-7.2 8.4-8.4 7.2 4.5A34.6 34.6 0 0 1 43 16l1.6-8.4h11.8ZM50.5 31a15 15 0 1 0 0 30 15 15 0 0 0 0-30Z"></path>
+          </svg>
+        </div>
+        <div class="hero-gear hero-gear-bottom-right" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <path d="M56.4 7.6 58 16a34.6 34.6 0 0 1 8.8 3.6l7.2-4.5 8.4 8.4-4.5 7.2A34.6 34.6 0 0 1 81.5 39l8.4 1.6v11.8L81.5 54a34.6 34.6 0 0 1-3.6 8.8l4.5 7.2-8.4 8.4-7.2-4.5a34.6 34.6 0 0 1-8.8 3.6l-1.6 8.4H44.6L43 77.5a34.6 34.6 0 0 1-8.8-3.6L27 78.4l-8.4-8.4 4.5-7.2A34.6 34.6 0 0 1 19.5 54L11 52.4V40.6l8.5-1.6a34.6 34.6 0 0 1 3.6-8.8l-4.5-7.2 8.4-8.4 7.2 4.5A34.6 34.6 0 0 1 43 16l1.6-8.4h11.8ZM50.5 31a15 15 0 1 0 0 30 15 15 0 0 0 0-30Z"></path>
+          </svg>
+        </div>
+      </section>
+
+      <section class="stats-band" aria-label="Business results">
+        <div class="stat-card">
+          <span class="stat-arrow">↗</span>
+          <strong class="count-up" data-target="56" data-prefix="" data-suffix="+">0</strong>
+          <p>AI Systems Deployed</p>
+        </div>
+        <div class="stat-card">
+          <span class="stat-arrow">↗</span>
+          <strong class="count-up" data-target="6" data-prefix="" data-suffix="X">0</strong>
+          <p>Avg. ROI Per Project</p>
+        </div>
+        <div class="stat-card">
+          <span class="stat-arrow">↗</span>
+          <strong class="count-up" data-target="5800" data-prefix="" data-suffix="+">0</strong>
+          <p>Hours Saved</p>
+        </div>
+      </section>
+
+      <section class="services-section" id="services">
+        <div class="services-header">
+          <h2>AI Systems Built for Impact</h2>
+          <p>
+            Built for teams ready to move fast, cut waste, and win bigger with AI.
+            Get fully-built, battle-tested AI systems done right, delivered fast.
+          </p>
+          <span class="section-accent"></span>
+        </div>
+
+        <div class="services-marquee">
+          <div class="services-track">
+            <article class="service-card featured">
+              <div class="service-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6 7.5A3.5 3.5 0 0 1 9.5 4h8A3.5 3.5 0 0 1 21 7.5v5A3.5 3.5 0 0 1 17.5 16H10l-4 4v-4.5A3.5 3.5 0 0 1 2.5 12v-4.5A3.5 3.5 0 0 1 6 4Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+              <h3>AI Voice Agents</h3>
+              <p>
+                Inbound or outbound, AI voice agents talk to your leads and customers
+                in real-time. They answer, qualify, remind, and follow up so your team
+                does not have to.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <div class="service-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.7"></circle>
+                  <path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <h3>Social Media AI Systems</h3>
+              <p>
+                AI handles your content, comments, and conversations. It writes,
+                schedules, replies, and reaches out while you stay focused on running
+                the business.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <div class="service-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="6" y="6" width="12" height="12" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.7"></rect>
+                  <path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <h3>Autonomous AI Agents</h3>
+              <p>
+                Agentic systems do more than automate. They act, decide, and move work
+                forward across internal operations and customer-facing tasks around the clock.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <div class="service-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M13 3 6 14h5l-1 7 8-12h-5l1-6Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+              <h3>Workflow Automations</h3>
+              <p>
+                Quiet, fast systems that run on schedules or triggers. From reporting to
+                onboarding and invoicing, repetitive work gets done before your team notices.
+              </p>
+            </article>
+
+            <article class="service-card featured" aria-hidden="true">
+              <div class="service-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6 7.5A3.5 3.5 0 0 1 9.5 4h8A3.5 3.5 0 0 1 21 7.5v5A3.5 3.5 0 0 1 17.5 16H10l-4 4v-4.5A3.5 3.5 0 0 1 2.5 12v-4.5A3.5 3.5 0 0 1 6 4Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+              <h3>AI Voice Agents</h3>
+              <p>
+                Inbound or outbound, AI voice agents talk to your leads and customers
+                in real-time. They answer, qualify, remind, and follow up so your team
+                does not have to.
+              </p>
+            </article>
+
+            <article class="service-card" aria-hidden="true">
+              <div class="service-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.7"></circle>
+                  <path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <h3>Social Media AI Systems</h3>
+              <p>
+                AI handles your content, comments, and conversations. It writes,
+                schedules, replies, and reaches out while you stay focused on running
+                the business.
+              </p>
+            </article>
+
+            <article class="service-card" aria-hidden="true">
+              <div class="service-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="6" y="6" width="12" height="12" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.7"></rect>
+                  <path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <h3>Autonomous AI Agents</h3>
+              <p>
+                Agentic systems do more than automate. They act, decide, and move work
+                forward across internal operations and customer-facing tasks around the clock.
+              </p>
+            </article>
+
+            <article class="service-card" aria-hidden="true">
+              <div class="service-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M13 3 6 14h5l-1 7 8-12h-5l1-6Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+              <h3>Workflow Automations</h3>
+              <p>
+                Quiet, fast systems that run on schedules or triggers. From reporting to
+                onboarding and invoicing, repetitive work gets done before your team notices.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-banner-section">
+        <div class="cta-banner">
+          <div class="cta-copy">
+            <h2>The Shift to <span>AI</span> Is Happening. Are You In?</h2>
+            <p>
+              Our team of AI experts will analyze your business needs and design a
+              customized AI adoption strategy to maximize your ROI, or tailor around
+              your vision and build fast.
+            </p>
+          </div>
+          <a class="cta-banner-button" href="#contact">Book a Call</a>
+        </div>
+      </section>
+
+      <section class="process-section" id="process">
+        <div class="section-copy">
+          <span class="eyebrow">Simple delivery</span>
+          <h2>Fast rollout. Clear execution.</h2>
+          <p>
+            We map the bottlenecks, build the right AI system, and deploy it without
+            dragging your team into a months-long implementation cycle.
+          </p>
+        </div>
+        <div class="process-grid">
+          <article>
+            <span>01</span>
+            <h3>Audit</h3>
+            <p>We identify the exact workflow where AI creates measurable leverage.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Build</h3>
+            <p>Custom systems are designed around your stack, process, and KPIs.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Deploy</h3>
+            <p>We launch, test, and refine until the automation is production-ready.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="tools-section" aria-labelledby="tools-title">
+        <div class="tools-header">
+          <h2 id="tools-title">Tools made for Productivity</h2>
+        </div>
+        <div class="tools-marquee">
+          <div class="tools-track">
+            <article class="tool-chip">
+              <span class="tool-logo" aria-hidden="true">
+                <img class="tool-logo-image tool-logo-image-n8n" src="https://n8n.io/brandguidelines/logo-white.svg" alt="">
+              </span>
+              <span class="tool-wordmark tool-wordmark-n8n">n8n</span>
+            </article>
+            <article class="tool-chip">
+              <span class="tool-logo tool-logo-openai-mark" aria-hidden="true">
+                <img class="tool-logo-image tool-logo-image-openai-mark" src="openai-symbol.png" alt="">
+              </span>
+              <span class="tool-wordmark tool-wordmark-openai">OpenAI</span>
+            </article>
+            <article class="tool-chip">
+              <span class="tool-logo tool-logo-ghl" aria-hidden="true">
+                <svg viewBox="0 0 72 72">
+                  <path d="M12 58V26h8v32h-8Zm-5-26 9-9 9 9H7Zm23 26V40h8v18h-8Zm-5-18 9-9 9 9H25Zm23 18V20h8v38h-8Zm-5-38 9-9 9 9H43Z" fill="none"></path>
+                  <path d="M12 58V26h8v32h-8Z" fill="#fbbc05"></path>
+                  <path d="M7 32l9-9 9 9H7Z" fill="#fcd34d"></path>
+                  <path d="M30 58V40h8v18h-8Z" fill="#2196f3"></path>
+                  <path d="M25 40l9-9 9 9H25Z" fill="#64b5f6"></path>
+                  <path d="M48 58V20h8v38h-8Z" fill="#00e000"></path>
+                  <path d="M43 20l9-9 9 9H43Z" fill="#34d399"></path>
+                </svg>
+              </span>
+              <span class="tool-wordmark tool-wordmark-ghl">HighLevel</span>
+            </article>
+            <article class="tool-chip">
+              <span class="tool-logo tool-logo-claude" aria-hidden="true">
+                <svg viewBox="0 0 64 64">
+                  <path d="M32 6 35.5 23.4 49 12.7 40.7 28 58 24.5 42.6 32 58 39.5 40.7 36 49 51.3 35.5 40.6 32 58 28.5 40.6 15 51.3 23.3 36 6 39.5 21.4 32 6 24.5 23.3 28 15 12.7 28.5 23.4Z" fill="#e07a5f"></path>
+                </svg>
+              </span>
+              <span class="tool-wordmark tool-wordmark-claude">Claude</span>
+            </article>
+            <article class="tool-chip">
+              <span class="tool-logo" aria-hidden="true">
+                <img class="tool-logo-image tool-logo-image-vapi" src="va-square-5.svg" alt="">
+              </span>
+              <span class="tool-wordmark tool-wordmark-vapi">Vapi</span>
+            </article>
+            <article class="tool-chip">
+              <span class="tool-logo" aria-hidden="true">
+                <img class="tool-logo-image tool-logo-image-eleven" src="elevenlabs-symbol.svg" alt="">
+              </span>
+              <span class="tool-wordmark tool-wordmark-eleven">ElevenLabs</span>
+            </article>
+            <article class="tool-chip">
+              <span class="tool-logo tool-logo-google" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M21 12.3c0-.8-.1-1.4-.2-2H12v3.8h5.1a4.5 4.5 0 0 1-1.9 3v2.5h3.1c1.8-1.6 2.7-4 2.7-7.3Z" fill="#4285f4"></path>
+                  <path d="M12 21c2.4 0 4.4-.8 5.8-2.1l-3.1-2.5c-.8.6-1.8 1-2.7 1-2.1 0-4-1.4-4.6-3.4H4.1v2.6A9 9 0 0 0 12 21Z" fill="#34a853"></path>
+                  <path d="M7.4 14c-.2-.6-.3-1.2-.3-2s.1-1.4.3-2V7.4H4.1A9 9 0 0 0 3 12c0 1.5.4 3 1.1 4.6L7.4 14Z" fill="#fbbc05"></path>
+                  <path d="M12 6.6c1.3 0 2.5.5 3.4 1.3l2.5-2.5A8.7 8.7 0 0 0 12 3 9 9 0 0 0 4.1 7.4L7.4 10c.6-2 2.5-3.4 4.6-3.4Z" fill="#ea4335"></path>
+                </svg>
+              </span>
+              <span class="tool-wordmark tool-wordmark-google">Google</span>
+            </article>
+
+            <article class="tool-chip" aria-hidden="true">
+              <span class="tool-logo" aria-hidden="true">
+                <img class="tool-logo-image tool-logo-image-n8n" src="https://n8n.io/brandguidelines/logo-white.svg" alt="">
+              </span>
+              <span class="tool-wordmark tool-wordmark-n8n">n8n</span>
+            </article>
+            <article class="tool-chip" aria-hidden="true">
+              <span class="tool-logo tool-logo-openai-mark" aria-hidden="true">
+                <img class="tool-logo-image tool-logo-image-openai-mark" src="openai-symbol.png" alt="">
+              </span>
+              <span class="tool-wordmark tool-wordmark-openai">OpenAI</span>
+            </article>
+            <article class="tool-chip" aria-hidden="true">
+              <span class="tool-logo tool-logo-ghl" aria-hidden="true">
+                <svg viewBox="0 0 72 72">
+                  <path d="M12 58V26h8v32h-8Zm-5-26 9-9 9 9H7Zm23 26V40h8v18h-8Zm-5-18 9-9 9 9H25Zm23 18V20h8v38h-8Zm-5-38 9-9 9 9H43Z" fill="none"></path>
+                  <path d="M12 58V26h8v32h-8Z" fill="#fbbc05"></path>
+                  <path d="M7 32l9-9 9 9H7Z" fill="#fcd34d"></path>
+                  <path d="M30 58V40h8v18h-8Z" fill="#2196f3"></path>
+                  <path d="M25 40l9-9 9 9H25Z" fill="#64b5f6"></path>
+                  <path d="M48 58V20h8v38h-8Z" fill="#00e000"></path>
+                  <path d="M43 20l9-9 9 9H43Z" fill="#34d399"></path>
+                </svg>
+              </span>
+              <span class="tool-wordmark tool-wordmark-ghl">HighLevel</span>
+            </article>
+            <article class="tool-chip" aria-hidden="true">
+              <span class="tool-logo tool-logo-claude" aria-hidden="true">
+                <svg viewBox="0 0 64 64">
+                  <path d="M32 6 35.5 23.4 49 12.7 40.7 28 58 24.5 42.6 32 58 39.5 40.7 36 49 51.3 35.5 40.6 32 58 28.5 40.6 15 51.3 23.3 36 6 39.5 21.4 32 6 24.5 23.3 28 15 12.7 28.5 23.4Z" fill="#e07a5f"></path>
+                </svg>
+              </span>
+              <span class="tool-wordmark tool-wordmark-claude">Claude</span>
+            </article>
+            <article class="tool-chip" aria-hidden="true">
+              <span class="tool-logo" aria-hidden="true">
+                <img class="tool-logo-image tool-logo-image-vapi" src="va-square-5.svg" alt="">
+              </span>
+              <span class="tool-wordmark tool-wordmark-vapi">Vapi</span>
+            </article>
+            <article class="tool-chip" aria-hidden="true">
+              <span class="tool-logo" aria-hidden="true">
+                <img class="tool-logo-image tool-logo-image-eleven" src="elevenlabs-symbol.svg" alt="">
+              </span>
+              <span class="tool-wordmark tool-wordmark-eleven">ElevenLabs</span>
+            </article>
+            <article class="tool-chip" aria-hidden="true">
+              <span class="tool-logo tool-logo-google" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M21 12.3c0-.8-.1-1.4-.2-2H12v3.8h5.1a4.5 4.5 0 0 1-1.9 3v2.5h3.1c1.8-1.6 2.7-4 2.7-7.3Z" fill="#4285f4"></path>
+                  <path d="M12 21c2.4 0 4.4-.8 5.8-2.1l-3.1-2.5c-.8.6-1.8 1-2.7 1-2.1 0-4-1.4-4.6-3.4H4.1v2.6A9 9 0 0 0 12 21Z" fill="#34a853"></path>
+                  <path d="M7.4 14c-.2-.6-.3-1.2-.3-2s.1-1.4.3-2V7.4H4.1A9 9 0 0 0 3 12c0 1.5.4 3 1.1 4.6L7.4 14Z" fill="#fbbc05"></path>
+                  <path d="M12 6.6c1.3 0 2.5.5 3.4 1.3l2.5-2.5A8.7 8.7 0 0 0 12 3 9 9 0 0 0 4.1 7.4L7.4 10c.6-2 2.5-3.4 4.6-3.4Z" fill="#ea4335"></path>
+                </svg>
+              </span>
+              <span class="tool-wordmark tool-wordmark-google">Google</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="quote-section scroll-spotlight" id="testimonials">
+        <div class="section-spotlight" aria-hidden="true">
+          <div class="section-spotlight-bar"></div>
+          <div class="section-spotlight-beam"></div>
+          <div class="section-spotlight-glow"></div>
+        </div>
+        <h2 class="quote-title">Testemonials</h2>
+        <div class="quote-card">
+          <p>
+            “Adelvo and their team rebuilt our follow-ups and sales processes, allowing us to
+            keep leads warm while focusing on high-value work instead of repetitive tasks.”
+          </p>
+          <div>
+            <strong>Kathrin Grajez</strong>
+            <span>CEO and Founder, Liga One Consulting</span>
+          </div>
+        </div>
+        <div class="quote-card">
+          <p>
+            “I was really surprised that the team was able to enhance my systems and identify
+            bottlenecks. I now have an AI receptionist that answers all my calls. I love it!”
+          </p>
+          <div>
+            <strong>Klaus Wagner</strong>
+            <span>CEO, KW Yachts</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-section" id="about">
+        <div class="section-copy">
+          <span class="eyebrow">About us</span>
+          <h2>AI won't replace you. But someone using it will.</h2>
+          <p>
+            Artificial intelligence is no longer optional. It is a fundamental requirement
+            for any business that wants to stay competitive. The challenge is that most
+            companies still don't know how to implement it in a way that actually delivers
+            results.
+          </p>
+          <p>That's where Adelvo comes in.</p>
+          <p>
+            We are a team that works hands-on with the latest AI tools and technologies every
+            day. We don't rely on theory or trends - we focus on what works in real business
+            environments.
+          </p>
+          <p>
+            Many companies struggle with inefficient processes, repetitive tasks, and missed
+            opportunities. Not because of a lack of effort, but because their systems are
+            outdated or disconnected.
+          </p>
+          <p>
+            We design and implement AI-driven solutions that streamline operations, reduce
+            manual work, and improve performance across the board.
+          </p>
+          <p>
+            Our approach is straightforward: Build systems that save time, increase
+            efficiency, and create measurable impact.
+          </p>
+          <p>AI done wrong creates complexity.</p>
+          <p>AI done right creates leverage.</p>
+          <p>We make sure it's done right.</p>
+        </div>
+        <div class="contact-envelope" id="contact">
+          <div class="envelope-shell" aria-hidden="true">
+            <div class="envelope-shadow"></div>
+            <div class="envelope-back"></div>
+            <div class="envelope-side envelope-side-left"></div>
+            <div class="envelope-side envelope-side-right"></div>
+            <div class="envelope-bottom"></div>
+            <div class="envelope-flap"></div>
+          </div>
+          <div class="contact-card contact-letter">
+            <h3>Ready to talk?</h3>
+            <p>Book a strategy call and get a concrete recommendation for your business.</p>
+            <a class="button" href="mailto:hello@automatez.ai">hello@automatez.ai</a>
+          </div>
+        </div>
+      </section>
+
+      <footer class="legal-footer">
+        <div class="legal-footer-inner">
+          <p>Adelvo</p>
+          <nav class="legal-nav" aria-label="Legal">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Imprint</a>
+            <a href="#contact">Contact</a>
+          </nav>
+        </div>
+      </footer>
+    </main>
+  </div>
+  <script>
+    const counters = document.querySelectorAll(".count-up");
+
+    const formatCount = (value, prefix, suffix) =>
+      prefix + value.toLocaleString("en-US") + suffix;
+
+    const animateCounter = (element) => {
+      if (element.dataset.animated === "true") {
+        return;
+      }
+
+      element.dataset.animated = "true";
+      const target = Number(element.dataset.target || 0);
+      const prefix = element.dataset.prefix || "";
+      const suffix = element.dataset.suffix || "";
+      const duration = target >= 1000 ? 3200 : 2200;
+      const start = performance.now();
+
+      const tick = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.round(target * eased);
+        element.textContent = formatCount(value, prefix, suffix);
+
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          element.textContent = formatCount(target, prefix, suffix);
+        }
+      };
+
+      requestAnimationFrame(tick);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    const envelopes = document.querySelectorAll(".contact-envelope");
+    const envelopeObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-open");
+            envelopeObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.45 }
+    );
+
+    const spotlights = document.querySelectorAll(".scroll-spotlight");
+    const spotlightObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-lit");
+            spotlightObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+
+    counters.forEach((counter) => observer.observe(counter));
+    envelopes.forEach((envelope) => envelopeObserver.observe(envelope));
+    spotlights.forEach((spotlight) => spotlightObserver.observe(spotlight));
+  </script>
+</body>
+</html>
