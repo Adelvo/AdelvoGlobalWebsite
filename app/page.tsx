@@ -89,16 +89,46 @@ const processSteps = [
     number: "01",
     title: "Audit",
     body: "We identify the exact workflow where AI creates measurable leverage.",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
+        <path d="m16 16 4.2 4.2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    ),
   },
   {
     number: "02",
     title: "Build",
     body: "Custom systems are designed around your stack, process, and KPIs.",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M14.9 3.9a4.2 4.2 0 0 0-4.8 5.3l-5.5 5.5a2 2 0 0 0 2.8 2.8l5.5-5.5a4.2 4.2 0 0 0 5.3-4.8l-2.2 2.2-2.8-.6-.6-2.8Z"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.7"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
   },
   {
     number: "03",
     title: "Deploy",
     body: "We launch, test, and refine until the automation is production-ready.",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M13 3c4.4 1.3 7 4.8 8 9-2.2 1.9-4.9 3-8 3-3.1 0-5.8-1.1-8-3 1-4.2 3.6-7.7 8-9Z"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.7"
+          strokeLinejoin="round"
+        />
+        <circle cx="13" cy="10" r="1.7" fill="none" stroke="currentColor" strokeWidth="1.7" />
+        <path d="M8.7 15.8 7 21l3.8-2.4L13 21l2.2-2.4L19 21l-1.7-5.2" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
   },
 ];
 
@@ -202,9 +232,88 @@ function Gear({ className }: { className: string }) {
 
 export default function Home() {
   useEffect(() => {
+    const envelopeTimers: number[] = [];
+    const revealTextItems = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        ".hero h1, .hero p, .hero-actions, .stats-band .stat-card, .services-header h2, .services-header p, .service-card, .cta-banner, .process-section .section-copy, .process-grid article, .tools-header h2, .tool-chip, .quote-title, .quote-card, .contact-section .section-copy .eyebrow, .contact-section .section-copy h2, .contact-section .section-copy p, .contact-envelope"
+      )
+    );
+    const revealGears = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        ".hero-gear, .about-gear, .brand-title-gear"
+      )
+    );
+
+    revealTextItems.forEach((item, index) => {
+      item.classList.add("reveal-fly");
+      item.style.setProperty("--reveal-delay", `${Math.min(index * 40, 520)}ms`);
+    });
+
+    revealGears.forEach((gear, index) => {
+      gear.classList.add("reveal-gear");
+      if (gear.className.includes("left")) {
+        gear.classList.add("reveal-from-left");
+      } else if (gear.className.includes("right")) {
+        gear.classList.add("reveal-from-right");
+      }
+      gear.style.setProperty("--reveal-delay", `${Math.min(index * 90, 420)}ms`);
+    });
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-inview");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.16, rootMargin: "0px 0px -10% 0px" }
+    );
+
     const counters = document.querySelectorAll<HTMLElement>(".count-up");
     const envelopes = document.querySelectorAll<HTMLElement>(".contact-envelope");
     const spotlights = document.querySelectorAll<HTMLElement>(".scroll-spotlight");
+    const cursorGearLayer = document.querySelector<HTMLElement>(".cursor-gear-layer");
+    const canUseCursorEffect =
+      window.matchMedia("(pointer: fine)").matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+    let lastSpawnTime = 0;
+
+    const spawnCursorGear = (x: number, y: number) => {
+      if (!cursorGearLayer) {
+        return;
+      }
+      const puff = document.createElement("span");
+      puff.className = "cursor-gear-puff";
+      puff.textContent = "⚙";
+      puff.style.left = `${x}px`;
+      puff.style.top = `${y}px`;
+      puff.style.setProperty("--gear-size", `${12 + Math.random() * 12}px`);
+      puff.style.setProperty("--drift-x", `${(Math.random() - 0.5) * 44}px`);
+      puff.style.setProperty("--drift-y", `${-44 - Math.random() * 42}px`);
+      puff.style.setProperty("--spin", `${80 + Math.random() * 180}deg`);
+      cursorGearLayer.appendChild(puff);
+      puff.addEventListener("animationend", () => puff.remove(), { once: true });
+    };
+
+    const handleMouseMove = (event: MouseEvent) => {
+      const now = performance.now();
+      const dx = event.clientX - lastMouseX;
+      const dy = event.clientY - lastMouseY;
+      const distance = Math.hypot(dx, dy);
+
+      if (now - lastSpawnTime < 36 || distance < 16) {
+        return;
+      }
+
+      lastSpawnTime = now;
+      lastMouseX = event.clientX;
+      lastMouseY = event.clientY;
+      spawnCursorGear(event.clientX, event.clientY);
+    };
 
     const formatCount = (value: number, prefix: string, suffix: string) =>
       prefix + value.toLocaleString("en-US") + suffix;
@@ -253,7 +362,15 @@ export default function Home() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("is-open");
+            const envelope = entry.target as HTMLElement;
+            if (envelope.dataset.openScheduled === "true") {
+              return;
+            }
+            envelope.dataset.openScheduled = "true";
+            const timerId = window.setTimeout(() => {
+              envelope.classList.add("is-open");
+            }, 2000);
+            envelopeTimers.push(timerId);
             envelopeObserver.unobserve(entry.target);
           }
         });
@@ -276,42 +393,32 @@ export default function Home() {
     counters.forEach((counter) => observer.observe(counter));
     envelopes.forEach((envelope) => envelopeObserver.observe(envelope));
     spotlights.forEach((spotlight) => spotlightObserver.observe(spotlight));
+    [...revealTextItems, ...revealGears].forEach((element) => revealObserver.observe(element));
+    if (canUseCursorEffect) {
+      window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    }
 
     return () => {
       counters.forEach((counter) => observer.unobserve(counter));
       envelopes.forEach((envelope) => envelopeObserver.unobserve(envelope));
       spotlights.forEach((spotlight) => spotlightObserver.unobserve(spotlight));
+      [...revealTextItems, ...revealGears].forEach((element) => revealObserver.unobserve(element));
       observer.disconnect();
       envelopeObserver.disconnect();
       spotlightObserver.disconnect();
+      revealObserver.disconnect();
+      envelopeTimers.forEach((timerId) => window.clearTimeout(timerId));
+      if (canUseCursorEffect) {
+        window.removeEventListener("mousemove", handleMouseMove);
+      }
     };
   }, []);
 
   return (
     <>
       <div className="page-shell">
+        <div className="cursor-gear-layer" aria-hidden="true" />
         <header className="site-header">
-          <a className="brand" href="#top" aria-label="Automatez AI home">
-            <span className="brand-mark">
-              <svg viewBox="0 0 64 64" aria-hidden="true">
-                <defs>
-                  <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#c77dff" />
-                    <stop offset="100%" stopColor="#7b2ce2" />
-                  </linearGradient>
-                </defs>
-                <path
-                  d="M32 8c-3.5 0-6.3 2.8-6.3 6.3v1.6c-3.7.8-7 2.8-9.5 5.5l-1.4-1.4a4.5 4.5 0 0 0-6.4 0 4.5 4.5 0 0 0 0 6.4l1.5 1.5A24 24 0 0 0 8 36c0 3 2.4 5.4 5.4 5.4H15c.7 3.6 2.4 6.9 4.8 9.5L18 52.5a4.5 4.5 0 0 0 0 6.4 4.5 4.5 0 0 0 6.4 0l1.6-1.6a24.1 24.1 0 0 0 8 1.4c3 0 5.4-2.4 5.4-5.4v-1.8a24.1 24.1 0 0 0 8-3.6l1.4 1.4a4.5 4.5 0 0 0 6.4 0 4.5 4.5 0 0 0 0-6.4l-1.4-1.4a24.1 24.1 0 0 0 2.3-7.8H58c3 0 5.4-2.4 5.4-5.4S61 22.9 58 22.9h-1.8a24 24 0 0 0-3.4-7l1.5-1.5a4.5 4.5 0 0 0 0-6.4 4.5 4.5 0 0 0-6.4 0l-1.7 1.7A24 24 0 0 0 38.3 8h-1.8C36.5 10.2 34.5 12 32 12c6.6 0 12 5.4 12 12 0 3.2-1.3 6.2-3.5 8.5L32 41l-8.6-8.5A11.9 11.9 0 0 1 20 24c0-6.6 5.4-12 12-12Z"
-                  fill="url(#logoGradient)"
-                />
-                <path d="M26 42h4v12h-4zM34 36h4v18h-4zM42 30h4v24h-4z" fill="url(#logoGradient)" />
-              </svg>
-            </span>
-            <span className="brand-text">
-              <strong>Automatez</strong>
-              <span>AI</span>
-            </span>
-          </a>
           <nav className="main-nav" aria-label="Primary navigation">
             <a href="#top">Home</a>
             <a href="#services">Services</a>
@@ -333,12 +440,11 @@ export default function Home() {
               <div className="aurora blob4" />
             </div>
             <div className="hero-noise" aria-hidden="true" />
-            <div className="hero-pill">Automatez AI</div>
             <div className="hero-content">
               <h1>
-                Accelerate Your Business
-                <span>with AI</span>
-                Automation
+                <span className="hero-line">Accelerate Your Business</span>
+                <span className="hero-highlight">with AI</span>
+                <span className="hero-line">Automation</span>
               </h1>
               <p>
                 Custom AI systems for businesses ready to cut costs, streamline ops, and scale
@@ -348,7 +454,7 @@ export default function Home() {
                 <a className="button button-ghost" href="#services">
                   Explore Systems
                 </a>
-                <a className="button" href="#contact">
+                <a className="button" href="https://calendly.com/adelvo-global-info/new-meeting">
                   Book a Call
                 </a>
               </div>
@@ -424,7 +530,7 @@ export default function Home() {
                   fast.
                 </p>
               </div>
-              <a className="cta-banner-button" href="#contact">
+              <a className="cta-banner-button" href="https://calendly.com/adelvo-global-info/new-meeting">
                 Book a Call
               </a>
             </div>
@@ -442,7 +548,10 @@ export default function Home() {
             <div className="process-grid">
               {processSteps.map((step) => (
                 <article key={step.number}>
-                  <span>{step.number}</span>
+                  <div className="process-step-top">
+                    <span>{step.number}</span>
+                    <div className="process-step-icon">{step.icon}</div>
+                  </div>
                   <h3>{step.title}</h3>
                   <p>{step.body}</p>
                 </article>
@@ -477,7 +586,7 @@ export default function Home() {
             <h2 className="quote-title">Testemonials</h2>
             <div className="quote-card">
               <p>
-                “Adelvo and their team rebuilt our follow-ups and sales processes, allowing us to
+                “Adelvo Global and their team rebuilt our follow-ups and sales processes, allowing us to
                 keep leads warm while focusing on high-value work instead of repetitive tasks.”
               </p>
               <div>
@@ -498,33 +607,39 @@ export default function Home() {
           </section>
 
           <section className="contact-section" id="about">
+            <div className="about-dark-bg" aria-hidden="true">
+              <div className="about-aurora about-blob1" />
+              <div className="about-aurora about-blob2" />
+              <div className="about-aurora about-blob3" />
+            </div>
+            <div className="about-noise" aria-hidden="true" />
+            <Gear className="about-gear about-gear-left" />
+            <Gear className="about-gear about-gear-top-right" />
+            <Gear className="about-gear about-gear-bottom-left" />
+            <Gear className="about-gear about-gear-bottom-right" />
             <div className="section-copy">
               <span className="eyebrow">About us</span>
               <h2>AI won&apos;t replace you. But someone using it will.</h2>
               <p>
-                Artificial intelligence is no longer optional. It is a fundamental requirement
-                for any business that wants to stay competitive. The challenge is that most
-                companies still don&apos;t know how to implement it in a way that actually delivers
-                results.
+                Artificial intelligence is no longer optional. Businesses that ignore it fall
+                behind. The problem: most companies don&apos;t know how to use it in a way that
+                actually delivers results.
               </p>
-              <p>That&apos;s where Adelvo comes in.</p>
+              <p>Adelvo Global fixes that.</p>
               <p>
-                We are a team that works hands-on with the latest AI tools and technologies every
-                day. We don&apos;t rely on theory or trends - we focus on what works in real business
-                environments.
+                We work hands-on with the latest AI tools and focus only on what works in real
+                business environments - not theory.
               </p>
               <p>
-                Many companies struggle with inefficient processes, repetitive tasks, and missed
-                opportunities. Not because of a lack of effort, but because their systems are
-                outdated or disconnected.
+                Most companies lose time and opportunities because their processes are outdated or
+                inefficient.
               </p>
               <p>
-                We design and implement AI-driven solutions that streamline operations, reduce
-                manual work, and improve performance across the board.
+                We build AI systems that automate tasks, streamline operations, and improve
+                performance.
               </p>
               <p>
-                Our approach is straightforward: Build systems that save time, increase
-                efficiency, and create measurable impact.
+                Simple goal: save time, increase efficiency, and drive measurable results.
               </p>
               <p>AI done wrong creates complexity.</p>
               <p>AI done right creates leverage.</p>
@@ -542,21 +657,101 @@ export default function Home() {
               <div className="contact-card contact-letter">
                 <h3>Ready to talk?</h3>
                 <p>Book a strategy call and get a concrete recommendation for your business.</p>
-                <a className="button" href="mailto:hello@automatez.ai">
-                  hello@automatez.ai
+                <a className="button" href="https://calendly.com/adelvo-global-info/new-meeting">
+                  Book a Call
                 </a>
               </div>
             </div>
           </section>
 
+          <section className="faq-bottom-section">
+            <section className="faq-section" aria-labelledby="faq-title">
+              <h2 id="faq-title" className="faq-title">
+                Frequently Asked Questions
+              </h2>
+              <div className="faq-list">
+                <details>
+                  <summary>1. What exactly do you do?</summary>
+                  <p>
+                    We help businesses automate repetitive tasks like responding to enquiries,
+                    following up with leads, and handling customer communication - so you don&apos;t
+                    lose potential customers.
+                  </p>
+                </details>
+                <details>
+                  <summary>2. Who is this for?</summary>
+                  <p>
+                    Our solutions are designed for service-based businesses that receive regular
+                    enquiries and want to respond faster and more efficiently.
+                  </p>
+                </details>
+                <details>
+                  <summary>3. How does it work?</summary>
+                  <p>
+                    We analyze your current process, identify bottlenecks, and implement simple
+                    automation systems that handle tasks automatically - without disrupting your
+                    workflow.
+                  </p>
+                </details>
+                <details>
+                  <summary>4. Do I need technical knowledge?</summary>
+                  <p>
+                    No. Everything is set up for you. You don&apos;t need any technical skills to use
+                    the systems.
+                  </p>
+                </details>
+                <details>
+                  <summary>5. Will this replace my team?</summary>
+                  <p>
+                    No. The goal is not to replace your team, but to remove repetitive work so your
+                    team can focus on high-value tasks.
+                  </p>
+                </details>
+                <details>
+                  <summary>6. What kind of results can I expect?</summary>
+                  <p>
+                    Most businesses lose 30-50% of their leads due to slow response times. Our
+                    systems help reduce that loss and improve response speed significantly.
+                  </p>
+                </details>
+                <details>
+                  <summary>7. How long does it take to set up?</summary>
+                  <p>
+                    Depending on your setup, most systems can be implemented within a few days.
+                  </p>
+                </details>
+                <details>
+                  <summary>8. Is this expensive?</summary>
+                  <p>
+                    No. Our focus is on simple, high-impact solutions that quickly pay for
+                    themselves by capturing more leads and saving time.
+                  </p>
+                </details>
+                <details>
+                  <summary>9. What tools do you use?</summary>
+                  <p>
+                    We use modern, reliable tools and tailor everything to your business. The focus
+                    is always on what works best for your workflow.
+                  </p>
+                </details>
+                <details>
+                  <summary>10. How do I get started?</summary>
+                  <p>
+                    Simply book a call. We&apos;ll review your current process and show you exactly
+                    where automation can help.
+                  </p>
+                </details>
+              </div>
+            </section>
+          </section>
+
           <footer className="legal-footer">
             <div className="legal-footer-inner">
-              <p>Adelvo</p>
+              <p>Adelvo Global</p>
               <nav className="legal-nav" aria-label="Legal">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Imprint</a>
-                <a href="#contact">Contact</a>
+                <a href="/privacy-policy">Privacy Policy</a>
+                <a href="/imprint">Imprint</a>
+                <a href="mailto:info@adelvo-global.ae">info@adelvo-global.ae</a>
               </nav>
             </div>
           </footer>
