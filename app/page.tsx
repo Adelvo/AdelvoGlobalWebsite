@@ -66,6 +66,30 @@ const services = [
     ),
   },
   {
+    title: "RAG Systems",
+    body:
+      "RAG means Retrieval-Augmented Generation. In simple terms: the AI first checks your own knowledge (like PDFs, FAQs, and internal docs), then answers. This makes responses more accurate, current, and specific to your business.",
+    featured: false,
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M5 5.2A2.2 2.2 0 0 1 7.2 3h9.2A2.6 2.6 0 0 1 19 5.6V17a1 1 0 0 1-1.5.9L15 16.4l-2.5 1.5a1 1 0 0 1-1 0L9 16.4l-2.5 1.5A1 1 0 0 1 5 17V5.2Z"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.7"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M8.2 8h7.6M8.2 11.2h7.6"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
+  {
     title: "Workflow Automations",
     body:
       "Quiet, fast systems that run on schedules or triggers. From reporting to onboarding and invoicing, repetitive work gets done before your team notices.",
@@ -220,16 +244,6 @@ const tools = [
   },
 ];
 
-function Gear({ className }: { className: string }) {
-  return (
-    <div className={className} aria-hidden="true">
-      <svg viewBox="0 0 100 100">
-        <path d="M56.4 7.6 58 16a34.6 34.6 0 0 1 8.8 3.6l7.2-4.5 8.4 8.4-4.5 7.2A34.6 34.6 0 0 1 81.5 39l8.4 1.6v11.8L81.5 54a34.6 34.6 0 0 1-3.6 8.8l4.5 7.2-8.4 8.4-7.2-4.5a34.6 34.6 0 0 1-8.8 3.6l-1.6 8.4H44.6L43 77.5a34.6 34.6 0 0 1-8.8-3.6L27 78.4l-8.4-8.4 4.5-7.2A34.6 34.6 0 0 1 19.5 54L11 52.4V40.6l8.5-1.6a34.6 34.6 0 0 1 3.6-8.8l-4.5-7.2 8.4-8.4 7.2 4.5A34.6 34.6 0 0 1 43 16l1.6-8.4h11.8ZM50.5 31a15 15 0 1 0 0 30 15 15 0 0 0 0-30Z" />
-      </svg>
-    </div>
-  );
-}
-
 export default function Home() {
   useEffect(() => {
     const envelopeTimers: number[] = [];
@@ -240,8 +254,11 @@ export default function Home() {
     );
     const revealGears = Array.from(
       document.querySelectorAll<HTMLElement>(
-        ".hero-gear, .about-gear, .brand-title-gear"
+        ".brand-title-gear"
       )
+    );
+    const revealOrbs = Array.from(
+      document.querySelectorAll<HTMLElement>(".hero-lux-orb, .about-lux-orb")
     );
 
     revealTextItems.forEach((item, index) => {
@@ -257,6 +274,16 @@ export default function Home() {
         gear.classList.add("reveal-from-right");
       }
       gear.style.setProperty("--reveal-delay", `${Math.min(index * 90, 420)}ms`);
+    });
+
+    revealOrbs.forEach((orb, index) => {
+      orb.classList.add("reveal-orb");
+      if (orb.className.includes("left")) {
+        orb.classList.add("reveal-from-left");
+      } else if (orb.className.includes("right")) {
+        orb.classList.add("reveal-from-right");
+      }
+      orb.style.setProperty("--reveal-delay", `${Math.min(index * 120, 260)}ms`);
     });
 
     const revealObserver = new IntersectionObserver(
@@ -369,7 +396,7 @@ export default function Home() {
             envelope.dataset.openScheduled = "true";
             const timerId = window.setTimeout(() => {
               envelope.classList.add("is-open");
-            }, 2000);
+            }, 320);
             envelopeTimers.push(timerId);
             envelopeObserver.unobserve(entry.target);
           }
@@ -393,7 +420,9 @@ export default function Home() {
     counters.forEach((counter) => observer.observe(counter));
     envelopes.forEach((envelope) => envelopeObserver.observe(envelope));
     spotlights.forEach((spotlight) => spotlightObserver.observe(spotlight));
-    [...revealTextItems, ...revealGears].forEach((element) => revealObserver.observe(element));
+    [...revealTextItems, ...revealGears, ...revealOrbs].forEach((element) =>
+      revealObserver.observe(element)
+    );
     if (canUseCursorEffect) {
       window.addEventListener("mousemove", handleMouseMove, { passive: true });
     }
@@ -402,7 +431,9 @@ export default function Home() {
       counters.forEach((counter) => observer.unobserve(counter));
       envelopes.forEach((envelope) => envelopeObserver.unobserve(envelope));
       spotlights.forEach((spotlight) => spotlightObserver.unobserve(spotlight));
-      [...revealTextItems, ...revealGears].forEach((element) => revealObserver.unobserve(element));
+      [...revealTextItems, ...revealGears, ...revealOrbs].forEach((element) =>
+        revealObserver.unobserve(element)
+      );
       observer.disconnect();
       envelopeObserver.disconnect();
       spotlightObserver.disconnect();
@@ -439,6 +470,9 @@ export default function Home() {
               <div className="aurora blob3" />
               <div className="aurora blob4" />
             </div>
+            <div className="hero-sheen" aria-hidden="true" />
+            <div className="hero-lux-orb hero-lux-orb-left" aria-hidden="true" />
+            <div className="hero-lux-orb hero-lux-orb-right" aria-hidden="true" />
             <div className="hero-noise" aria-hidden="true" />
             <div className="hero-content">
               <h1>
@@ -459,12 +493,6 @@ export default function Home() {
                 </a>
               </div>
             </div>
-
-            <Gear className="hero-gear hero-gear-left" />
-            <Gear className="hero-gear hero-gear-top" />
-            <Gear className="hero-gear hero-gear-right" />
-            <Gear className="hero-gear hero-gear-bottom-left" />
-            <Gear className="hero-gear hero-gear-bottom-right" />
           </section>
 
           <section className="stats-band" aria-label="Business results">
@@ -612,11 +640,10 @@ export default function Home() {
               <div className="about-aurora about-blob2" />
               <div className="about-aurora about-blob3" />
             </div>
+            <div className="about-sheen" aria-hidden="true" />
+            <div className="about-lux-orb about-lux-orb-left" aria-hidden="true" />
+            <div className="about-lux-orb about-lux-orb-right" aria-hidden="true" />
             <div className="about-noise" aria-hidden="true" />
-            <Gear className="about-gear about-gear-left" />
-            <Gear className="about-gear about-gear-top-right" />
-            <Gear className="about-gear about-gear-bottom-left" />
-            <Gear className="about-gear about-gear-bottom-right" />
             <div className="section-copy">
               <span className="eyebrow">About us</span>
               <h2>AI won&apos;t replace you. But someone using it will.</h2>
@@ -646,17 +673,13 @@ export default function Home() {
               <p>We make sure it&apos;s done right.</p>
             </div>
             <div className="contact-envelope" id="contact">
-              <div className="envelope-shell" aria-hidden="true">
-                <div className="envelope-shadow" />
-                <div className="envelope-back" />
-                <div className="envelope-side envelope-side-left" />
-                <div className="envelope-side envelope-side-right" />
-                <div className="envelope-bottom" />
-                <div className="envelope-flap" />
-              </div>
-              <div className="contact-card contact-letter">
-                <h3>Ready to talk?</h3>
-                <p>Book a strategy call and get a concrete recommendation for your business.</p>
+              <div className="contact-lux-panel">
+                <span className="contact-lux-kicker">Private Strategy Session</span>
+                <h3>Ready for Your AI Upgrade?</h3>
+                <p>
+                  Book a focused strategy call and get a clear roadmap for where AI creates the
+                  biggest leverage in your business.
+                </p>
                 <a className="button" href="https://calendly.com/adelvo-global-info/new-meeting">
                   Book a Call
                 </a>
