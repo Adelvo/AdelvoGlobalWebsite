@@ -13,7 +13,7 @@ const sections = [
         <p>Adelvo Global</p>
         <p>Dubai, UAE (Al Barsha South)</p>
         <p>
-          Email: <a href="mailto:info@adelvo-global.ae">info@adelvo-global.ae</a>
+          Email: <a href="mailto:support@adelvo-global.ae">support@adelvo-global.ae</a>
         </p>
       </>
     ),
@@ -130,7 +130,7 @@ const sections = [
         </ul>
         <p>
           To exercise your rights, contact:{" "}
-          <a href="mailto:info@adelvo-global.ae">info@adelvo-global.ae</a>
+          <a href="mailto:support@adelvo-global.ae">support@adelvo-global.ae</a>
         </p>
       </>
     ),

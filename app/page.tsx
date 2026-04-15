@@ -774,7 +774,7 @@ export default function Home() {
               <nav className="legal-nav" aria-label="Legal">
                 <a href="/privacy-policy">Privacy Policy</a>
                 <a href="/imprint">Imprint</a>
-                <a href="mailto:info@adelvo-global.ae">info@adelvo-global.ae</a>
+                <a href="mailto:support@adelvo-global.ae">support@adelvo-global.ae</a>
               </nav>
             </div>
           </footer>

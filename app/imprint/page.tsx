@@ -23,7 +23,7 @@ const sections = [
           <strong>Contact</strong>
         </p>
         <p>
-          Email: <a href="mailto:info@adelvo-global.ae">info@adelvo-global.ae</a>
+          Email: <a href="mailto:support@adelvo-global.ae">support@adelvo-global.ae</a>
         </p>
         <p>
           <strong>Represented by</strong>

@@ -21,12 +21,15 @@
 
 html {
   scroll-behavior: smooth;
+  background: #010102;
 }
 
 body {
   margin: 0;
   min-width: 320px;
+  min-height: 100svh;
   font-family: "Avenir Next", "Segoe UI", sans-serif;
+  background-color: #010102;
   background:
     radial-gradient(circle at 50% 18%, rgba(8, 145, 178, 0.14), transparent 28%),
     linear-gradient(180deg, #010102 0%, #06050b 46%, #f9f8fd 46%, #f7f6fb 100%);
@@ -631,8 +634,35 @@ a {
 }
 
 .stat-arrow {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
   color: var(--accent);
-  font-size: 2rem;
+}
+
+.stat-arrow::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  bottom: 6px;
+  width: 20px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 999px;
+  transform: rotate(-45deg);
+  transform-origin: left center;
+}
+
+.stat-arrow::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
 }
 
 .stat-card strong {
@@ -726,7 +756,12 @@ a {
   gap: 30px;
   width: max-content;
   padding: 0 6vw;
-  animation: services-scroll 38s linear infinite;
+  animation: services-scroll 70s linear infinite;
+}
+
+.services-track.is-paused,
+.tools-track.is-paused {
+  animation-play-state: paused;
 }
 
 .service-card {
@@ -924,7 +959,7 @@ a {
   gap: 22px;
   width: max-content;
   padding: 0 7vw;
-  animation: tools-scroll 24s linear infinite;
+  animation: tools-scroll 48s linear infinite;
 }
 
 .tool-chip {
@@ -1286,6 +1321,7 @@ a {
   margin-right: auto;
   max-width: 980px;
   padding: 42px;
+  text-align: center;
   transition:
     transform 180ms ease,
     border-color 180ms ease,
@@ -1322,12 +1358,20 @@ a {
   color: #20283a;
   font-size: clamp(1.3rem, 2.1vw, 1.85rem);
   line-height: 1.55;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
 }
 
 .quote-card strong,
 .contact-card h3 {
   display: block;
   color: #1e2636;
+}
+
+.quote-card strong,
+.quote-card span {
+  text-align: center;
+  overflow-wrap: anywhere;
 }
 
 .contact-section {
@@ -1781,7 +1825,7 @@ a {
   }
 
   .tools-track {
-    animation-duration: 20s;
+    animation-duration: 56s;
   }
 
   .hero {
@@ -1927,7 +1971,7 @@ a {
     --services-loop-offset: 9px;
     gap: 18px;
     padding: 0 22px;
-    animation-duration: 42s;
+    animation-duration: 82s;
   }
 
   .service-card {
@@ -1955,6 +1999,20 @@ a {
   .quote-card,
   .contact-card {
     padding: 28px;
+  }
+
+  .quote-title,
+  .quote-card,
+  .quote-card p,
+  .quote-card strong,
+  .quote-card span {
+    text-align: center;
+  }
+
+  .quote-card p,
+  .quote-card span {
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   .section-spotlight {
@@ -2008,7 +2066,8 @@ a {
   }
 
   .contact-envelope {
-    height: 320px;
+    height: auto;
+    min-height: 380px;
   }
 
   .about-gear {
@@ -2067,7 +2126,7 @@ a {
     --tools-loop-offset: 7px;
     gap: 14px;
     padding: 0 22px;
-    animation-duration: 18s;
+    animation-duration: 62s;
   }
 
   .tool-chip {

@@ -21,7 +21,7 @@
         <a href="#testimonials">Testimonials</a>
         <a href="#about">About Us</a>
       </nav>
-      <a class="button button-small" href="#contact">Let's Talk</a>
+      <a class="button button-small" href="https://calendly.com/adelvo-global-info/new-meeting?month=2026-04">Let's Talk</a>
     </header>
 
     <main>
@@ -55,17 +55,17 @@
 
       <section class="stats-band" aria-label="Business results">
         <div class="stat-card">
-          <span class="stat-arrow">↗</span>
+          <span class="stat-arrow" aria-hidden="true"></span>
           <strong class="count-up" data-target="56" data-prefix="" data-suffix="+">0</strong>
           <p>AI Systems Deployed</p>
         </div>
         <div class="stat-card">
-          <span class="stat-arrow">↗</span>
+          <span class="stat-arrow" aria-hidden="true"></span>
           <strong class="count-up" data-target="6" data-prefix="" data-suffix="X">0</strong>
           <p>Avg. ROI Per Project</p>
         </div>
         <div class="stat-card">
-          <span class="stat-arrow">↗</span>
+          <span class="stat-arrow" aria-hidden="true"></span>
           <strong class="count-up" data-target="5800" data-prefix="" data-suffix="+">0</strong>
           <p>Hours Saved</p>
         </div>
@@ -553,7 +553,7 @@
           <nav class="legal-nav" aria-label="Legal">
             <a href="/privacy-policy.html">Privacy Policy</a>
             <a href="/imprint.html">Imprint</a>
-            <a href="mailto:info@adelvo-global.ae">info@adelvo-global.ae</a>
+            <a href="mailto:support@adelvo-global.ae">support@adelvo-global.ae</a>
           </nav>
         </div>
       </footer>
@@ -727,9 +727,27 @@
       window.addEventListener("mousemove", handleMouseMove, { passive: true });
     }
 
+    const marqueeTracks = document.querySelectorAll(".services-track, .tools-track");
+
+    const pauseMarquee = (track) => {
+      track.classList.add("is-paused");
+    };
+
+    const resumeMarquee = (track) => {
+      track.classList.remove("is-paused");
+    };
+
+    marqueeTracks.forEach((track) => {
+      track.addEventListener("mouseenter", () => pauseMarquee(track));
+      track.addEventListener("mouseleave", () => resumeMarquee(track));
+      track.addEventListener("touchstart", () => pauseMarquee(track), { passive: true });
+      track.addEventListener("touchend", () => resumeMarquee(track), { passive: true });
+      track.addEventListener("touchcancel", () => resumeMarquee(track), { passive: true });
+    });
+
     const revealTextItems = Array.from(
       document.querySelectorAll(
-        ".hero h1, .hero p, .hero-actions, .stats-band .stat-card, .services-header h2, .services-header p, .service-card, .cta-banner, .process-section .section-copy, .process-grid article, .tools-header h2, .tool-chip, .quote-title, .quote-card, .contact-section .section-copy .eyebrow, .contact-section .section-copy h2, .contact-section .section-copy p, .contact-envelope"
+        ".hero h1, .hero p, .hero-actions, .stats-band .stat-card, .services-header h2, .services-header p, .service-card, .cta-banner, .process-section .section-copy, .process-grid article, .quote-title, .quote-card, .contact-section .section-copy .eyebrow, .contact-section .section-copy h2, .contact-section .section-copy p, .contact-envelope"
       )
     );
     const revealGears = Array.from(
