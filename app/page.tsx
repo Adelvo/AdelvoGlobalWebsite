@@ -1,158 +1,348 @@
 "use client";
 
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 
-const services = [
+const icon = {
+  phone: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  person: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="8" r="3.4" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M5 20c0-3.6 3.1-6.4 7-6.4s7 2.8 7 6.4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  ),
+  calendar: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="4" y="5.5" width="16" height="14.5" rx="2.4" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M4 9.6h16M8 3.5v3M16 3.5v3" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  ),
+  bell: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M12 3.5c-2.5 0-4.4 2-4.4 4.6v3.1c0 .6-.2 1.2-.6 1.7l-1 1.3c-.5.6-.1 1.5.6 1.5h11c.7 0 1.1-.9.6-1.5l-1-1.3c-.4-.5-.6-1.1-.6-1.7V8.1c0-2.6-1.9-4.6-4.4-4.6Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M10 18.5a2 2 0 0 0 4 0" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  ),
+  refresh: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4.5 12a7.5 7.5 0 0 1 12.6-5.5M19.5 12a7.5 7.5 0 0 1-12.6 5.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M17 3.5v3.5h-3.5M7 20.5V17h3.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  trendingUp: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3.5 16.5 9 11l4 4 7-7.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M15.5 7.5H20v4.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  calendarCheck: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="4" y="5.5" width="16" height="14.5" rx="2.4" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M4 9.6h16M8 3.5v3M16 3.5v3" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <circle cx="8.6" cy="14.2" r="1" fill="currentColor" stroke="none" />
+      <path d="M12.6 14.4 14.4 16.2 17.6 12.6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  searchChart: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <path d="m15.4 15.4 4.3 4.3" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M7.8 12.6v-1.4M10.5 12.6V8.2M13.2 12.6V9.8" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  ),
+  hierarchy: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="9" y="3.5" width="6" height="5" rx="1.4" fill="none" stroke="currentColor" strokeWidth="1.7" />
+      <rect x="3" y="15" width="6" height="5" rx="1.4" fill="none" stroke="currentColor" strokeWidth="1.7" />
+      <rect x="15" y="15" width="6" height="5" rx="1.4" fill="none" stroke="currentColor" strokeWidth="1.7" />
+      <path d="M12 8.5v3M12 11.5H6v3.5M12 11.5h6v3.5" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  puzzle: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 0 1-.657.643 48.39 48.39 0 0 1-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 0 1-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 0 0-1.003-.349c-1.035 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 0 1-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 0 0 .657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 0 1-.349-1.003c0-1.035 1.007-1.875 2.25-1.875s2.25.84 2.25 1.875c0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 0 0 5.427-.63 48.05 48.05 0 0 0 .582-4.717.532.532 0 0 0-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.036 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.369 0 .713.128 1.003.349.283.215.604.401.959.401v0a.656.656 0 0 0 .659-.663 47.703 47.703 0 0 0-.31-4.82.532.532 0 0 0-.57-.61c-1.687.14-3.383.222-5.096.245A.657.657 0 0 1 14.25 6.087Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  check: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M5 12.5 10 17.5 19.5 7" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  globe: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="8.4" fill="none" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M3.6 12h16.8M12 3.6c2.6 2.3 4 5.3 4 8.4s-1.4 6.1-4 8.4c-2.6-2.3-4-5.3-4-8.4s1.4-6.1 4-8.4Z" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  sliders: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3 6h6M13 6h8M3 12h11M18 12h3M3 18h8M15 18h6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <circle cx="9" cy="6" r="2" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="15" cy="12" r="2" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="11" cy="18" r="2" fill="none" stroke="currentColor" strokeWidth="1.8" />
+    </svg>
+  ),
+  circleArrow: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M19 12a7 7 0 1 1-2.2-5.1" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M19 4.5v4.5h-4.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  muffin: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M5 9.4c1.1-2.6 2.7-2.6 3.8-1 1-2.4 2.8-2.4 3.7 0 .9-2.4 2.7-2.4 3.7 0 1.1-1.6 2.7-1.6 3.3 1"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M5.4 9.6h13.2l-1.5 7.6a1.8 1.8 0 0 1-1.77 1.5H8.67a1.8 1.8 0 0 1-1.77-1.5Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M8.6 11.6 8.1 17.2M12 11.6v5.6M15.4 11.6l.5 5.6"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+      />
+    </svg>
+  ),
+  userCheck: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="10" cy="8" r="3.2" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M4.3 20c0-3.4 2.9-6 6.2-6M15.5 15.5l1.8 1.8 3-3.2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  target: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="12" cy="12" r="1" fill="currentColor" />
+    </svg>
+  ),
+  message: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M4.5 5.8c0-1 .8-1.8 1.8-1.8h11.4c1 0 1.8.8 1.8 1.8v8.4c0 1-.8 1.8-1.8 1.8H9l-4 3.2v-3.2H6.3c-1 0-1.8-.8-1.8-1.8Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  shieldCheck: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M12 3.5 5 6v5.4c0 4.3 2.9 7.6 7 8.6 4.1-1 7-4.3 7-8.6V6Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="m9 12.2 2 2 4-4.4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  escalate: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6 18 18 6M9 6h9v9" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  gear: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <path
+        d="M12 3.5v2.2M12 18.3v2.2M20.5 12h-2.2M5.7 12H3.5M17.7 6.3l-1.5 1.5M7.8 16.2l-1.5 1.5M17.7 17.7l-1.5-1.5M7.8 7.8 6.3 6.3"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  ),
+  sync: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9.5 14.5 14.5 9.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path
+        d="M8 16.2 6.3 17.9a3.2 3.2 0 0 1-4.5-4.5l2.5-2.5M16 7.8l1.7-1.7a3.2 3.2 0 0 1 4.5 4.5l-2.5 2.5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  flag: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6 21V4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M6 5h11l-2.6 3.5L17 12H6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  mail: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3.5" y="5.5" width="17" height="13" rx="2.2" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <path d="m4.2 6.5 7.8 6.4 7.8-6.4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  zap: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M13 3 5 13.5h5.6L11 21l8-11.2h-5.6L13 3Z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+    </svg>
+  ),
+  clock: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="8.4" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M12 7.4V12l3.4 2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  headset: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4.5 13.4v-1.9a7.5 7.5 0 0 1 15 0v1.9" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <rect x="3" y="13" width="4" height="6" rx="1.6" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <rect x="17" y="13" width="4" height="6" rx="1.6" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M19 19.4v.6a3 3 0 0 1-3 3h-2.4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  ),
+  arrowRight: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4.5 12h15M13 5.5 19.5 12 13 18.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+};
+
+const aiEmployees = [
   {
-    title: "AI Voice Agents",
-    body:
-      "Inbound or outbound, AI voice agents talk to your leads and customers in real-time. They answer, qualify, remind, and follow up so your team does not have to.",
-    featured: true,
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path
-          d="M6 7.5A3.5 3.5 0 0 1 9.5 4h8A3.5 3.5 0 0 1 21 7.5v5A3.5 3.5 0 0 1 17.5 16H10l-4 4v-4.5A3.5 3.5 0 0 1 2.5 12v-4.5A3.5 3.5 0 0 1 6 4Z"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.7"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
+    title: "Phone Assistant",
+    subtitle: "Never miss another customer call.",
+    problemLabel: "THE PROBLEM",
+    problemHeadline: "Calls go unanswered while you're on the job.",
+    features: [
+      { icon: icon.phone, text: "Answers every call instantly, 24/7." },
+      { icon: icon.person, text: "Qualifies every lead automatically." },
+      { icon: icon.calendar, text: "Books appointments automatically." },
+    ],
+    image: "/images/ai-phone-agent.png",
   },
   {
-    title: "Social Media AI Systems",
-    body:
-      "AI handles your content, comments, and conversations. It writes, schedules, replies, and reaches out while you stay focused on running the business.",
-    featured: false,
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" strokeWidth="1.7" />
-        <path
-          d="M12 7v5l3 2"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.7"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
+    title: "Appointment Agent",
+    subtitle: "Fill your calendar without lifting a finger.",
+    problemLabel: "THE PROBLEM",
+    problemHeadline: "No-shows and empty slots drain your calendar.",
+    features: [
+      { icon: icon.calendar, text: "Books qualified appointments automatically." },
+      { icon: icon.bell, text: "Sends reminders that cut no-shows in half." },
+      { icon: icon.refresh, text: "Reschedules and follows up without staff time." },
+    ],
+    image: "/images/appointment-agent.png",
   },
   {
-    title: "Autonomous AI Agents",
-    body:
-      "Agentic systems do more than automate. They act, decide, and move work forward across internal operations and customer-facing tasks around the clock.",
-    featured: false,
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <rect
-          x="6"
-          y="6"
-          width="12"
-          height="12"
-          rx="2.4"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.7"
-        />
-        <path
-          d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
+    title: "Sales Agent",
+    subtitle: "Turn conversations into closed deals.",
+    problemLabel: "THE PROBLEM",
+    problemHeadline: "Leads go cold before your team can follow up.",
+    features: [
+      { icon: icon.trendingUp, text: "Follows up with every lead within seconds." },
+      { icon: icon.userCheck, text: "Qualifies buyers before they reach your team." },
+      { icon: icon.target, text: "Nurtures prospects until they're ready to close." },
+    ],
+    image: "/images/sales-agent.png",
   },
   {
-    title: "RAG Systems",
-    body:
-      "RAG means Retrieval-Augmented Generation. In simple terms: the AI first checks your own knowledge (like PDFs, FAQs, and internal docs), then answers. This makes responses more accurate, current, and specific to your business.",
-    featured: false,
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path
-          d="M5 5.2A2.2 2.2 0 0 1 7.2 3h9.2A2.6 2.6 0 0 1 19 5.6V17a1 1 0 0 1-1.5.9L15 16.4l-2.5 1.5a1 1 0 0 1-1 0L9 16.4l-2.5 1.5A1 1 0 0 1 5 17V5.2Z"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.7"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M8.2 8h7.6M8.2 11.2h7.6"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
+    title: "Support Agent",
+    subtitle: "Resolve customer issues around the clock.",
+    problemLabel: "THE PROBLEM",
+    problemHeadline: "Support tickets pile up while customers wait.",
+    features: [
+      { icon: icon.message, text: "Answers customer questions instantly, 24/7." },
+      { icon: icon.shieldCheck, text: "Resolves common issues without a human agent." },
+      { icon: icon.escalate, text: "Escalates complex cases to your team automatically." },
+    ],
+    image: "/images/support-agent.png",
   },
   {
-    title: "Workflow Automations",
-    body:
-      "Quiet, fast systems that run on schedules or triggers. From reporting to onboarding and invoicing, repetitive work gets done before your team notices.",
-    featured: false,
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path
-          d="M13 3 6 14h5l-1 7 8-12h-5l1-6Z"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.7"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
+    title: "Operations Agent",
+    subtitle: "Keep your internal workflows running themselves.",
+    problemLabel: "THE PROBLEM",
+    problemHeadline: "Manual busywork slows your whole team down.",
+    features: [
+      { icon: icon.gear, text: "Automates repetitive internal workflows end-to-end." },
+      { icon: icon.sync, text: "Syncs data across every tool your team uses." },
+      { icon: icon.flag, text: "Flags exceptions before they become problems." },
+    ],
+    image: "/images/operations-agent.jpeg",
   },
 ];
 
-const processSteps = [
+const aiDashboard = {
+  title: "AI Dashboard",
+  subtitle: "See everything. Control everything.",
+  tagline: "Your entire business, your AI Employees, all in one place.",
+  image: "/images/ai-dashboard.jpeg",
+};
+
+const workflowSteps = [
   {
     number: "01",
-    title: "Audit",
-    body: "We identify the exact workflow where AI creates measurable leverage.",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
-        <path d="m16 16 4.2 4.2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-    ),
+    title: "Book a Call",
+    body: "Schedule your strategy session.",
+    icon: icon.calendarCheck,
   },
   {
     number: "02",
-    title: "Build",
-    body: "Custom systems are designed around your stack, process, and KPIs.",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path
-          d="M14.9 3.9a4.2 4.2 0 0 0-4.8 5.3l-5.5 5.5a2 2 0 0 0 2.8 2.8l5.5-5.5a4.2 4.2 0 0 0 5.3-4.8l-2.2 2.2-2.8-.6-.6-2.8Z"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.7"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
+    title: "Discover",
+    body: "Analyze your workflow and identify opportunities.",
+    icon: icon.searchChart,
   },
   {
     number: "03",
+    title: "Build",
+    body: "Custom AI Employees built for your business.",
+    icon: icon.hierarchy,
+  },
+  {
+    number: "04",
     title: "Deploy",
-    body: "We launch, test, and refine until the automation is production-ready.",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path
-          d="M13 3c4.4 1.3 7 4.8 8 9-2.2 1.9-4.9 3-8 3-3.1 0-5.8-1.1-8-3 1-4.2 3.6-7.7 8-9Z"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.7"
-          strokeLinejoin="round"
-        />
-        <circle cx="13" cy="10" r="1.7" fill="none" stroke="currentColor" strokeWidth="1.7" />
-        <path d="M8.7 15.8 7 21l3.8-2.4L13 21l2.2-2.4L19 21l-1.7-5.2" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    body: "Integrated, tested and ready to work.",
+    icon: icon.puzzle,
+  },
+  {
+    number: "05",
+    title: "Optimize",
+    body: "Continuous improvements and support.",
+    icon: icon.trendingUp,
   },
 ];
 
@@ -246,10 +436,10 @@ const tools = [
 
 export default function Home() {
   useEffect(() => {
-    const envelopeTimers: number[] = [];
+    const workflowTimers: number[] = [];
     const revealTextItems = Array.from(
       document.querySelectorAll<HTMLElement>(
-        ".hero h1, .hero p, .hero-actions, .stats-band .stat-card, .services-header h2, .services-header p, .service-card, .cta-banner, .process-section .section-copy, .process-grid article, .tools-header h2, .tool-chip, .quote-title, .quote-card, .contact-section .section-copy .eyebrow, .contact-section .section-copy h2, .contact-section .section-copy p, .contact-envelope"
+        ".hero-heading, .hero-tagline, .hero-paragraph, .hero-cta-row, .hero-stats-row, .services-header h2, .services-header p, .employee-row, .dashboard-feature, .cta-banner, .process-section .section-copy, .process-grid article, .tools-header h2, .tool-chip, .quote-title, .quote-card, .why-heading, .comparison-row"
       )
     );
     const revealGears = Array.from(
@@ -298,8 +488,6 @@ export default function Home() {
       { threshold: 0.16, rootMargin: "0px 0px -10% 0px" }
     );
 
-    const counters = document.querySelectorAll<HTMLElement>(".count-up");
-    const envelopes = document.querySelectorAll<HTMLElement>(".contact-envelope");
     const spotlights = document.querySelectorAll<HTMLElement>(".scroll-spotlight");
     const cursorGearLayer = document.querySelector<HTMLElement>(".cursor-gear-layer");
     const canUseCursorEffect =
@@ -342,69 +530,6 @@ export default function Home() {
       spawnCursorGear(event.clientX, event.clientY);
     };
 
-    const formatCount = (value: number, prefix: string, suffix: string) =>
-      prefix + value.toLocaleString("en-US") + suffix;
-
-    const animateCounter = (element: HTMLElement) => {
-      if (element.dataset.animated === "true") {
-        return;
-      }
-
-      element.dataset.animated = "true";
-      const target = Number(element.dataset.target || 0);
-      const prefix = element.dataset.prefix || "";
-      const suffix = element.dataset.suffix || "";
-      const duration = target >= 1000 ? 3200 : 2200;
-      const start = performance.now();
-
-      const tick = (now: number) => {
-        const progress = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const value = Math.round(target * eased);
-        element.textContent = formatCount(value, prefix, suffix);
-
-        if (progress < 1) {
-          requestAnimationFrame(tick);
-        } else {
-          element.textContent = formatCount(target, prefix, suffix);
-        }
-      };
-
-      requestAnimationFrame(tick);
-    };
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animateCounter(entry.target as HTMLElement);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    const envelopeObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const envelope = entry.target as HTMLElement;
-            if (envelope.dataset.openScheduled === "true") {
-              return;
-            }
-            envelope.dataset.openScheduled = "true";
-            const timerId = window.setTimeout(() => {
-              envelope.classList.add("is-open");
-            }, 320);
-            envelopeTimers.push(timerId);
-            envelopeObserver.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.45 }
-    );
-
     const spotlightObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -417,8 +542,82 @@ export default function Home() {
       { threshold: 0.4 }
     );
 
-    counters.forEach((counter) => observer.observe(counter));
-    envelopes.forEach((envelope) => envelopeObserver.observe(envelope));
+    const workflowTrack = document.querySelector<HTMLElement>(".workflow-track");
+    let workflowRunning = false;
+
+    const stopWorkflowCycle = (track: HTMLElement) => {
+      workflowRunning = false;
+      workflowTimers.forEach((timerId) => window.clearTimeout(timerId));
+      workflowTimers.length = 0;
+      track
+        .querySelectorAll<HTMLElement>(".workflow-step")
+        .forEach((stepEl) => stepEl.classList.remove("is-active", "is-checked"));
+      track
+        .querySelectorAll<HTMLElement>(".workflow-connector")
+        .forEach((connectorEl) => connectorEl.classList.remove("is-filled"));
+    };
+
+    const workflowObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const track = entry.target as HTMLElement;
+
+          if (!entry.isIntersecting) {
+            stopWorkflowCycle(track);
+            return;
+          }
+          if (workflowRunning) {
+            return;
+          }
+          workflowRunning = true;
+
+          const steps = Array.from(track.querySelectorAll<HTMLElement>(".workflow-step"));
+          const connectors = Array.from(track.querySelectorAll<HTMLElement>(".workflow-connector"));
+          const STEP_GAP = 1000;
+          const GROW_DURATION = 600;
+          const CHECK_DELAY = 350;
+          const LOOP_PAUSE = 1400;
+          const RESET_PAUSE = 500;
+
+          const playWorkflowCycle = () => {
+            let cumulative = 0;
+            steps.forEach((stepEl, index) => {
+              const activateAt = cumulative;
+              workflowTimers.push(
+                window.setTimeout(() => stepEl.classList.add("is-active"), activateAt),
+                window.setTimeout(() => stepEl.classList.add("is-checked"), activateAt + CHECK_DELAY)
+              );
+
+              const connector = connectors[index];
+              if (connector) {
+                const connectorStart = activateAt + STEP_GAP;
+                workflowTimers.push(
+                  window.setTimeout(() => connector.classList.add("is-filled"), connectorStart)
+                );
+                cumulative = connectorStart + GROW_DURATION;
+              } else {
+                cumulative = activateAt + STEP_GAP;
+              }
+            });
+
+            workflowTimers.push(
+              window.setTimeout(() => {
+                steps.forEach((stepEl) => stepEl.classList.remove("is-active", "is-checked"));
+                connectors.forEach((connectorEl) => connectorEl.classList.remove("is-filled"));
+                workflowTimers.push(window.setTimeout(playWorkflowCycle, RESET_PAUSE));
+              }, cumulative + LOOP_PAUSE)
+            );
+          };
+
+          playWorkflowCycle();
+        });
+      },
+      { threshold: 0.3 }
+    );
+    if (workflowTrack) {
+      workflowObserver.observe(workflowTrack);
+    }
+
     spotlights.forEach((spotlight) => spotlightObserver.observe(spotlight));
     [...revealTextItems, ...revealGears, ...revealOrbs].forEach((element) =>
       revealObserver.observe(element)
@@ -428,17 +627,14 @@ export default function Home() {
     }
 
     return () => {
-      counters.forEach((counter) => observer.unobserve(counter));
-      envelopes.forEach((envelope) => envelopeObserver.unobserve(envelope));
       spotlights.forEach((spotlight) => spotlightObserver.unobserve(spotlight));
       [...revealTextItems, ...revealGears, ...revealOrbs].forEach((element) =>
         revealObserver.unobserve(element)
       );
-      observer.disconnect();
-      envelopeObserver.disconnect();
       spotlightObserver.disconnect();
       revealObserver.disconnect();
-      envelopeTimers.forEach((timerId) => window.clearTimeout(timerId));
+      workflowObserver.disconnect();
+      workflowTimers.forEach((timerId) => window.clearTimeout(timerId));
       if (canUseCursorEffect) {
         window.removeEventListener("mousemove", handleMouseMove);
       }
@@ -450,98 +646,147 @@ export default function Home() {
       <div className="page-shell">
         <div className="cursor-gear-layer" aria-hidden="true" />
         <header className="site-header">
+          <a className="site-brand" href="#top">
+            Adelvo Global
+          </a>
           <nav className="main-nav" aria-label="Primary navigation">
-            <a href="#top">Home</a>
-            <a href="#services">Services</a>
-            <a href="#process">Process</a>
-            <a href="#testimonials">Testimonials</a>
-            <a href="#about">About Us</a>
+            <a href="#services">Solutions</a>
+            <a href="#process">How it Works</a>
+            <a href="#about">About</a>
           </nav>
-          <a className="button button-small" href="#contact">
-            Let&apos;s Talk
+          <a className="button button-small hero-btn-with-arrow" href="https://calendly.com/adelvo-global-info/new-meeting">
+            Book a Call
+            <span className="button-arrow">{icon.arrowRight}</span>
           </a>
         </header>
 
         <main>
           <section className="hero" id="top">
-            <div className="aurora-bg">
-              <div className="aurora blob1" />
-              <div className="aurora blob2" />
-              <div className="aurora blob3" />
-              <div className="aurora blob4" />
-            </div>
-            <div className="hero-sheen" aria-hidden="true" />
-            <div className="hero-lux-orb hero-lux-orb-left" aria-hidden="true" />
-            <div className="hero-lux-orb hero-lux-orb-right" aria-hidden="true" />
-            <div className="hero-noise" aria-hidden="true" />
-            <div className="hero-content">
-              <h1>
-                <span className="hero-line">Accelerate Your Business</span>
-                <span className="hero-highlight">with AI</span>
-                <span className="hero-line">Automation</span>
-              </h1>
-              <p>
-                Custom AI systems for businesses ready to cut costs, streamline ops, and scale
-                fast.
-              </p>
-              <div className="hero-actions">
-                <a className="button button-ghost" href="#services">
-                  Explore Systems
-                </a>
-                <a className="button" href="https://calendly.com/adelvo-global-info/new-meeting">
-                  Book a Call
-                </a>
+            <div className="hero-grid">
+              <div className="hero-copy">
+                <h1 className="hero-heading">
+                  <span className="hero-heading-accent">AI Employees</span>
+                  <span>That Run Your</span>
+                  <span>Business.</span>
+                </h1>
+                <p className="hero-tagline">
+                  <span className="hero-tagline-accent">More Customers.</span> Less Busy Work.
+                </p>
+                <p className="hero-paragraph">
+                  Answer calls. Book appointments. Follow up with every lead. Automate the work
+                  your team repeats every day.
+                </p>
+                <div className="hero-cta-row">
+                  <a
+                    className="button hero-btn-with-arrow"
+                    href="https://calendly.com/adelvo-global-info/new-meeting"
+                  >
+                    Book a Call
+                    <span className="button-arrow">{icon.arrowRight}</span>
+                  </a>
+                  <a className="button button-ghost hero-btn-with-arrow" href="#services">
+                    Explore AI Employees
+                    <span className="button-arrow">{icon.arrowRight}</span>
+                  </a>
+                </div>
+                <div className="hero-stats-row">
+                  <div className="hero-stat">
+                    <span className="hero-stat-icon">{icon.zap}</span>
+                    <div>
+                      <strong>99.9%</strong>
+                      <p>Response Rate</p>
+                    </div>
+                  </div>
+                  <span className="hero-stat-divider" aria-hidden="true" />
+                  <div className="hero-stat">
+                    <span className="hero-stat-icon">{icon.clock}</span>
+                    <div>
+                      <strong>24/7</strong>
+                      <p>Availability</p>
+                    </div>
+                  </div>
+                  <span className="hero-stat-divider" aria-hidden="true" />
+                  <div className="hero-stat">
+                    <span className="hero-stat-icon">{icon.headset}</span>
+                    <div>
+                      <strong>0</strong>
+                      <p>Missed Calls</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="hero-globe-col">
+                <img
+                  className="hero-globe-photo"
+                  src="/images/hero-globe.png"
+                  alt="Globe showing AI Employees automating a call answered, an appointment booked, a follow-up sent, and a workflow completed"
+                />
               </div>
             </div>
           </section>
 
-          <section className="stats-band" aria-label="Business results">
-            <div className="stat-card">
-              <span className="stat-arrow">↗</span>
-              <strong className="count-up" data-target="56" data-prefix="" data-suffix="+">
-                0
-              </strong>
-              <p>AI Systems Deployed</p>
-            </div>
-            <div className="stat-card">
-              <span className="stat-arrow">↗</span>
-              <strong className="count-up" data-target="6" data-prefix="" data-suffix="X">
-                0
-              </strong>
-              <p>Avg. ROI Per Project</p>
-            </div>
-            <div className="stat-card">
-              <span className="stat-arrow">↗</span>
-              <strong className="count-up" data-target="5800" data-prefix="" data-suffix="+">
-                0
-              </strong>
-              <p>Hours Saved</p>
-            </div>
-          </section>
-
           <section className="services-section" id="services">
-            <div className="services-header">
-              <h2>AI Systems Built for Impact</h2>
-              <p>
-                Built for teams ready to move fast, cut waste, and win bigger with AI. Get
-                fully-built, battle-tested AI systems done right, delivered fast.
-              </p>
-              <span className="section-accent" />
+            <div className="employees-list">
+              <div className="employee-next-separator" aria-hidden="true" />
+              {aiEmployees.map((agent, index) => (
+                <Fragment key={agent.title}>
+                  <article className="employee-card">
+                    <div className="employee-hero">
+                      <h3 className="employee-hero-title">{agent.title}</h3>
+                      <p className="employee-hero-subtitle">{agent.subtitle}</p>
+                    </div>
+                    <div className={`employee-row${index % 2 === 1 ? " employee-row-reverse" : ""}`}>
+                      <div className="employee-visual" aria-label={`${agent.title} image`}>
+                        {agent.image ? (
+                          <img className="employee-visual-image" src={agent.image} alt={agent.title} />
+                        ) : (
+                          <span>{agent.title}</span>
+                        )}
+                      </div>
+                      <div className="employee-copy-problem">
+                        <span className="employee-problem-label">{agent.problemLabel}</span>
+                        <h4 className="employee-problem-headline">{agent.problemHeadline}</h4>
+                        <div className="employee-divider" />
+                        <ul className="employee-features">
+                          {agent.features.map((feature) => (
+                            <li key={feature.text}>
+                              <span className="employee-feature-icon">{feature.icon}</span>
+                              <span className="employee-feature-text">{feature.text}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        <a
+                          className="button button-ghost button-small hero-btn-with-arrow employee-cta-button"
+                          href="https://calendly.com/adelvo-global-info/new-meeting"
+                        >
+                          Book a Call
+                          <span className="button-arrow">{icon.arrowRight}</span>
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+                  {index < aiEmployees.length - 1 && (
+                    <div className="employee-next-separator" aria-hidden="true" />
+                  )}
+                </Fragment>
+              ))}
+              <div className="employee-next-separator" aria-hidden="true" />
             </div>
 
-            <div className="services-marquee">
-              <div className="services-track">
-                {[...services, ...services].map((service, index) => (
-                  <article
-                    key={`${service.title}-${index}`}
-                    className={`service-card${service.featured ? " featured" : ""}`}
-                    aria-hidden={index >= services.length}
-                  >
-                    <div className="service-icon">{service.icon}</div>
-                    <h3>{service.title}</h3>
-                    <p>{service.body}</p>
-                  </article>
-                ))}
+            <div className="dashboard-block">
+              <div className="services-header services-header-dashboard">
+                <h2>{aiDashboard.title}</h2>
+                <h3 className="dashboard-subheading">{aiDashboard.subtitle}</h3>
+                <p className="dashboard-tagline">{aiDashboard.tagline}</p>
+              </div>
+
+              <div className="dashboard-image-wrap">
+                <img
+                  className="dashboard-image"
+                  src={aiDashboard.image}
+                  alt="AI Dashboard overview showing calls, leads, appointments, and revenue"
+                />
               </div>
             </div>
           </section>
@@ -550,39 +795,43 @@ export default function Home() {
             <div className="cta-banner">
               <div className="cta-copy">
                 <h2>
-                  The Shift to <span>AI</span> Is Happening. Are You In?
+                  Let&rsquo;s build your first <span>AI Employee.</span>
                 </h2>
-                <p>
-                  Our team of AI experts will analyze your business needs and design a customized
-                  AI adoption strategy to maximize your ROI, or tailor around your vision and build
-                  fast.
-                </p>
               </div>
               <a className="cta-banner-button" href="https://calendly.com/adelvo-global-info/new-meeting">
                 Book a Call
+                <span className="cta-banner-button-arrow" aria-hidden="true">
+                  →
+                </span>
               </a>
             </div>
           </section>
 
-          <section className="process-section" id="process">
-            <div className="section-copy">
-              <span className="eyebrow">Simple delivery</span>
-              <h2>Fast rollout. Clear execution.</h2>
-              <p>
-                We map the bottlenecks, build the right AI system, and deploy it without dragging
-                your team into a months-long implementation cycle.
-              </p>
+          <section className="workflow-section" id="process">
+            <div className="workflow-header">
+              <span className="eyebrow">How it works</span>
+              <h2>From your first call to a fully deployed AI Employee.</h2>
             </div>
-            <div className="process-grid">
-              {processSteps.map((step) => (
-                <article key={step.number}>
-                  <div className="process-step-top">
-                    <span>{step.number}</span>
-                    <div className="process-step-icon">{step.icon}</div>
+            <div className="workflow-track">
+              {workflowSteps.map((step, index) => (
+                <Fragment key={step.number}>
+                  <div className="workflow-step" data-step-index={index}>
+                    <div className="workflow-circle">
+                      <span className="workflow-circle-icon">{step.icon}</span>
+                      <span className="workflow-circle-check" aria-hidden="true">
+                        {icon.check}
+                      </span>
+                    </div>
+                    <span className="workflow-number">{step.number}</span>
+                    <h3>{step.title}</h3>
+                    <p>{step.body}</p>
                   </div>
-                  <h3>{step.title}</h3>
-                  <p>{step.body}</p>
-                </article>
+                  {index < workflowSteps.length - 1 && (
+                    <div className="workflow-connector" data-connector-index={index}>
+                      <span className="workflow-connector-fill" />
+                    </div>
+                  )}
+                </Fragment>
               ))}
             </div>
           </section>
@@ -605,167 +854,86 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="quote-section scroll-spotlight" id="testimonials">
-            <div className="section-spotlight" aria-hidden="true">
-              <div className="section-spotlight-bar" />
-              <div className="section-spotlight-beam" />
-              <div className="section-spotlight-glow" />
-            </div>
-            <h2 className="quote-title">Testemonials</h2>
-            <div className="quote-card">
-              <p>
-                “Adelvo Global and their team rebuilt our follow-ups and sales processes, allowing us to
-                keep leads warm while focusing on high-value work instead of repetitive tasks.”
-              </p>
-              <div>
-                <strong>Kathrin Grajez</strong>
-                <span>CEO and Founder, Liga One Consulting</span>
-              </div>
-            </div>
-            <div className="quote-card">
-              <p>
-                “I was really surprised that the team was able to enhance my systems and identify
-                bottlenecks. I now have an AI receptionist that answers all my calls. I love it!”
-              </p>
-              <div>
-                <strong>Klaus Wagner</strong>
-                <span>CEO, KW Yachts</span>
-              </div>
-            </div>
-          </section>
-
           <section className="contact-section" id="about">
-            <div className="about-dark-bg" aria-hidden="true">
-              <div className="about-aurora about-blob1" />
-              <div className="about-aurora about-blob2" />
-              <div className="about-aurora about-blob3" />
-            </div>
-            <div className="about-sheen" aria-hidden="true" />
-            <div className="about-lux-orb about-lux-orb-left" aria-hidden="true" />
-            <div className="about-lux-orb about-lux-orb-right" aria-hidden="true" />
-            <div className="about-noise" aria-hidden="true" />
             <div className="section-copy">
-              <span className="eyebrow">About us</span>
-              <h2>AI won&apos;t replace you. But someone using it will.</h2>
-              <p>
-                Artificial intelligence is no longer optional. Businesses that ignore it fall
-                behind. The problem: most companies don&apos;t know how to use it in a way that
-                actually delivers results.
-              </p>
-              <p>Adelvo Global fixes that.</p>
-              <p>
-                We work hands-on with the latest AI tools and focus only on what works in real
-                business environments - not theory.
-              </p>
-              <p>
-                Most companies lose time and opportunities because their processes are outdated or
-                inefficient.
-              </p>
-              <p>
-                We build AI systems that automate tasks, streamline operations, and improve
-                performance.
-              </p>
-              <p>
-                Simple goal: save time, increase efficiency, and drive measurable results.
-              </p>
-              <p>AI done wrong creates complexity.</p>
-              <p>AI done right creates leverage.</p>
-              <p>We make sure it&apos;s done right.</p>
-            </div>
-            <div className="contact-envelope" id="contact">
-              <div className="contact-lux-panel">
-                <span className="contact-lux-kicker">Private Strategy Session</span>
-                <h3>Ready for Your AI Upgrade?</h3>
-                <p>
-                  Book a focused strategy call and get a clear roadmap for where AI creates the
-                  biggest leverage in your business.
-                </p>
-                <a className="button" href="https://calendly.com/adelvo-global-info/new-meeting">
-                  Book a Call
-                </a>
+              <h2 className="why-heading">Why Adelvo Global?</h2>
+              <div className="comparison-table">
+                <div className="comparison-row comparison-row-head">
+                  <div className="comparison-cell comparison-cell-label" />
+                  <div className="comparison-cell comparison-cell-adelvo">
+                    <span className="comparison-adelvo-icon">{icon.globe}</span>
+                    Adelvo Global
+                  </div>
+                  <div className="comparison-cell comparison-cell-other">Other Companies</div>
+                </div>
+                <div className="comparison-row">
+                  <div className="comparison-cell comparison-cell-label">
+                    <span className="comparison-row-icon">{icon.sliders}</span>
+                    Tailored to your workflows
+                  </div>
+                  <div className="comparison-cell comparison-cell-adelvo">
+                    <span className="comparison-check">{icon.check}</span>
+                  </div>
+                  <div className="comparison-cell comparison-cell-other" />
+                </div>
+                <div className="comparison-row">
+                  <div className="comparison-cell comparison-cell-label">
+                    <span className="comparison-row-icon">{icon.puzzle}</span>
+                    Integrated with your existing tools
+                  </div>
+                  <div className="comparison-cell comparison-cell-adelvo">
+                    <span className="comparison-check">{icon.check}</span>
+                  </div>
+                  <div className="comparison-cell comparison-cell-other" />
+                </div>
+                <div className="comparison-row">
+                  <div className="comparison-cell comparison-cell-label">
+                    <span className="comparison-row-icon">{icon.zap}</span>
+                    Fast implementation
+                  </div>
+                  <div className="comparison-cell comparison-cell-adelvo">
+                    <span className="comparison-check">{icon.check}</span>
+                  </div>
+                  <div className="comparison-cell comparison-cell-other" />
+                </div>
+                <div className="comparison-row">
+                  <div className="comparison-cell comparison-cell-label">
+                    <span className="comparison-row-icon">{icon.circleArrow}</span>
+                    Continuous optimization
+                  </div>
+                  <div className="comparison-cell comparison-cell-adelvo">
+                    <span className="comparison-check">{icon.check}</span>
+                  </div>
+                  <div className="comparison-cell comparison-cell-other" />
+                </div>
+                <div className="comparison-row">
+                  <div className="comparison-cell comparison-cell-label">
+                    <span className="comparison-row-icon">{icon.muffin}</span>
+                    Delivers muffins 🧁
+                  </div>
+                  <div className="comparison-cell comparison-cell-adelvo" />
+                  <div className="comparison-cell comparison-cell-other">
+                    <span className="comparison-check">{icon.check}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
 
-          <section className="faq-bottom-section">
-            <section className="faq-section" aria-labelledby="faq-title">
-              <h2 id="faq-title" className="faq-title">
-                Frequently Asked Questions
-              </h2>
-              <div className="faq-list">
-                <details>
-                  <summary>1. What exactly do you do?</summary>
-                  <p>
-                    We help businesses automate repetitive tasks like responding to enquiries,
-                    following up with leads, and handling customer communication - so you don&apos;t
-                    lose potential customers.
-                  </p>
-                </details>
-                <details>
-                  <summary>2. Who is this for?</summary>
-                  <p>
-                    Our solutions are designed for service-based businesses that receive regular
-                    enquiries and want to respond faster and more efficiently.
-                  </p>
-                </details>
-                <details>
-                  <summary>3. How does it work?</summary>
-                  <p>
-                    We analyze your current process, identify bottlenecks, and implement simple
-                    automation systems that handle tasks automatically - without disrupting your
-                    workflow.
-                  </p>
-                </details>
-                <details>
-                  <summary>4. Do I need technical knowledge?</summary>
-                  <p>
-                    No. Everything is set up for you. You don&apos;t need any technical skills to use
-                    the systems.
-                  </p>
-                </details>
-                <details>
-                  <summary>5. Will this replace my team?</summary>
-                  <p>
-                    No. The goal is not to replace your team, but to remove repetitive work so your
-                    team can focus on high-value tasks.
-                  </p>
-                </details>
-                <details>
-                  <summary>6. What kind of results can I expect?</summary>
-                  <p>
-                    Most businesses lose 30-50% of their leads due to slow response times. Our
-                    systems help reduce that loss and improve response speed significantly.
-                  </p>
-                </details>
-                <details>
-                  <summary>7. How long does it take to set up?</summary>
-                  <p>
-                    Depending on your setup, most systems can be implemented within a few days.
-                  </p>
-                </details>
-                <details>
-                  <summary>8. Is this expensive?</summary>
-                  <p>
-                    No. Our focus is on simple, high-impact solutions that quickly pay for
-                    themselves by capturing more leads and saving time.
-                  </p>
-                </details>
-                <details>
-                  <summary>9. What tools do you use?</summary>
-                  <p>
-                    We use modern, reliable tools and tailor everything to your business. The focus
-                    is always on what works best for your workflow.
-                  </p>
-                </details>
-                <details>
-                  <summary>10. How do I get started?</summary>
-                  <p>
-                    Simply book a call. We&apos;ll review your current process and show you exactly
-                    where automation can help.
-                  </p>
-                </details>
-              </div>
-            </section>
+          <section className="real-world-section" aria-labelledby="real-world-title">
+            <h2 id="real-world-title" className="real-world-title">
+              How it works in the real world
+            </h2>
+            <p className="real-world-subtitle">
+              See how one customer call turns into a completed job.
+            </p>
+            <div className="real-world-image-wrap">
+              <img
+                className="real-world-image"
+                src="/images/how-it-works-real-world.png"
+                alt="Step-by-step example of an AI Employee handling an incoming call from lead to job completion"
+              />
+            </div>
           </section>
 
           <footer className="legal-footer">
