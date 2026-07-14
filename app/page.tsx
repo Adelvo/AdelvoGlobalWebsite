@@ -652,9 +652,12 @@ export default function Home() {
           <nav className="main-nav" aria-label="Primary navigation">
             <a href="#services">Solutions</a>
             <a href="#process">How it Works</a>
-            <a href="#about">About</a>
+            <a href="#about">Why us?</a>
           </nav>
-          <a className="button button-small hero-btn-with-arrow" href="https://calendly.com/adelvo-global-info/new-meeting">
+          <a className="site-header-email" href="mailto:support@adelvo-global.ae">
+            support@adelvo-global.ae
+          </a>
+          <a className="button button-small hero-btn-with-arrow" href="https://calendly.com/adelvo-global/new-meeting">
             Book a Call
             <span className="button-arrow">{icon.arrowRight}</span>
           </a>
@@ -679,7 +682,7 @@ export default function Home() {
                 <div className="hero-cta-row">
                   <a
                     className="button hero-btn-with-arrow"
-                    href="https://calendly.com/adelvo-global-info/new-meeting"
+                    href="https://calendly.com/adelvo-global/new-meeting"
                   >
                     Book a Call
                     <span className="button-arrow">{icon.arrowRight}</span>
@@ -758,7 +761,7 @@ export default function Home() {
                         </ul>
                         <a
                           className="button button-ghost button-small hero-btn-with-arrow employee-cta-button"
-                          href="https://calendly.com/adelvo-global-info/new-meeting"
+                          href="https://calendly.com/adelvo-global/new-meeting"
                         >
                           Book a Call
                           <span className="button-arrow">{icon.arrowRight}</span>
@@ -798,7 +801,7 @@ export default function Home() {
                   Let&rsquo;s build your first <span>AI Employee.</span>
                 </h2>
               </div>
-              <a className="cta-banner-button" href="https://calendly.com/adelvo-global-info/new-meeting">
+              <a className="cta-banner-button" href="https://calendly.com/adelvo-global/new-meeting">
                 Book a Call
                 <span className="cta-banner-button-arrow" aria-hidden="true">
                   →
@@ -836,7 +839,23 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="tools-section" aria-labelledby="tools-title">
+          <section className="real-world-section" aria-labelledby="real-world-title">
+            <h2 id="real-world-title" className="real-world-title">
+              How it works in the real world
+            </h2>
+            <p className="real-world-subtitle">
+              See how one customer call turns into a completed job.
+            </p>
+            <div className="real-world-image-wrap">
+              <img
+                className="real-world-image"
+                src="/images/how-it-works-real-world.png"
+                alt="Step-by-step example of an AI Employee handling an incoming call from lead to job completion"
+              />
+            </div>
+          </section>
+
+          <section className="tools-section" id="tools" aria-labelledby="tools-title">
             <div className="tools-header">
               <h2 id="tools-title">Tools made for Productivity</h2>
             </div>
@@ -917,22 +936,6 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
-
-          <section className="real-world-section" aria-labelledby="real-world-title">
-            <h2 id="real-world-title" className="real-world-title">
-              How it works in the real world
-            </h2>
-            <p className="real-world-subtitle">
-              See how one customer call turns into a completed job.
-            </p>
-            <div className="real-world-image-wrap">
-              <img
-                className="real-world-image"
-                src="/images/how-it-works-real-world.png"
-                alt="Step-by-step example of an AI Employee handling an incoming call from lead to job completion"
-              />
             </div>
           </section>
 

@@ -40,25 +40,25 @@ const sections = [
     ),
   },
   {
-    title: "3. Hosting (GitHub Pages)",
+    title: "3. Hosting (Vercel)",
     body: (
       <>
         <p>
-          This website is hosted via GitHub Pages, a service provided by GitHub Inc., 88 Colin P
-          Kelly Jr St, San Francisco, CA 94107, USA.
+          This website is hosted via Vercel, a service provided by Vercel Inc., 340 S Lemon Ave
+          #4133, Walnut, CA 91789, USA.
         </p>
         <p>
-          When visiting this website, GitHub may process technical data such as IP addresses and
+          When visiting this website, Vercel may process technical data such as IP addresses and
           server log data.
         </p>
         <p>
-          For more information, please refer to GitHub&apos;s Privacy Policy:{" "}
+          For more information, please refer to Vercel&apos;s Privacy Policy:{" "}
           <a
-            href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement"
+            href="https://vercel.com/legal/privacy-policy"
             target="_blank"
             rel="noreferrer"
           >
-            https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement
+            https://vercel.com/legal/privacy-policy
           </a>
         </p>
       </>
@@ -104,7 +104,7 @@ const sections = [
     body: (
       <p>
         We do not share your personal data with third parties, except through the services
-        mentioned above (GitHub Pages and Calendly).
+        mentioned above (Vercel and Calendly).
       </p>
     ),
   },

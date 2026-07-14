@@ -28,7 +28,7 @@ const sections = [
         <p>
           <strong>Represented by</strong>
         </p>
-        <p>Klaus Wagner</p>
+        <p>Kris Wagner</p>
       </>
     ),
   },
